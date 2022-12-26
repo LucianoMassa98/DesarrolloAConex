@@ -22,10 +22,9 @@ function routerApi(app) {
     app.use('/api/v1',router);
     router.use('/productos', productosRouter);
     router.use('/negocios', negociosRouter);
-
- router.use('/categorias', categoriasRouter);
- router.use('/clientes', clientesRouter);
- router.use('/cobros', cobrosRouter);
+  router.use('/categorias', categoriasRouter);
+  router.use('/clientes', clientesRouter);
+   router.use('/cobros', cobrosRouter);
  router.use('/compras', comprasRouter);
  router.use('/ventas', ventasRouter);
  router.use('/cuentas', cuentasRouter);

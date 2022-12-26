@@ -1,6 +1,6 @@
 
 function NewCodProd(array){
-  console.log("aqui");
+
   return  `${array.length +1}`;
 }
 /*
