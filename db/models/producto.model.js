@@ -49,7 +49,11 @@ const productoSchema  = {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  costo: {
+  valor: {
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+  },
+  cantidad: {
     type: DataTypes.DOUBLE,
     allowNull: false,
   },
@@ -70,6 +74,7 @@ class Producto extends Model{
   static associate(models){
   this.belongsTo(models.Categoria, {as: 'categoria'});
   this.belongsTo(models.Negocio, {as: 'negocio'});
+
   }
   // definir otrto estatico para la conexin
   static config(sequelize){

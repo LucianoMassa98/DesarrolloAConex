@@ -5,7 +5,10 @@ const service = new UsuariosService();
 const  {
   createusuarioSchema,
   updateusuarioSchema,
-  getusuarioSchema
+  getusuarioSchema,
+  loginusuarioSchema,
+  addroleSchema,
+  subtractroleSchema
   } = require('../schemas/usuario.schema');
 
   const {getnegocioSchema} = require('../schemas/negocio.schema');
@@ -34,13 +37,42 @@ async (req,res,next)=>{
 });
 router.post('/',
 validatorHandler(createusuarioSchema,'body'),
-async (req, res) => {
-  const body = req.body;
-  const Newusuario = await service.create(body);
+async (req, res,next) => {
+  try{
+    const body = req.body;
+    const Newusuario = await service.create(body);
+    res.json({
+      message: 'created',
+      data: Newusuario
+    });
+  }catch(err){next(err);}
+});
+router.post('/add-role',
+validatorHandler(addroleSchema,'body'),
+async (req, res,next) => {
+  try{
+    const body = req.body;
+    const Newusuario = await service.addRole(body);
+    res.json({
+      message: 'add role',
+      data: Newusuario
+    });
+  }catch(err){
+    next(err);
+  }
+});
+
+router.post('/login',
+validatorHandler(loginusuarioSchema,'body'),
+async (req, res,next) => {
+ try{
+  const {username,password} = req.body;
+  const user = await service.login(username, password);
   res.json({
-    message: 'created',
-    data: Newusuario
+    message: 'login',
+    data: user
   });
+ }catch(err){next(err);}
 });
 router.patch('/:negocioId/:usuarioId',
 validatorHandler(getusuarioSchema,'params'),
@@ -50,25 +82,44 @@ async (req, res,next) => {
     const { negocioId,usuarioId } = req.params;
     const body = req.body;
     const xupdate = await service.update(negocioId,usuarioId,body);
-    res.json(xupdate);
+    res.json({
+      message: 'updated',
+      data: xupdate
+    });
   }
   catch(err){
     next(err);
   }
 });
-
 router.delete('/:negocioId/:usuarioId',
   validatorHandler(getusuarioSchema,'params'),
   async(req, res,next) => {
   try{
     const { negocioId,usuarioId } = req.params;
   const delX = await service.delete(negocioId,usuarioId);
-  res.json(delX);
+  res.json({
+    message: 'deleted',
+    data: delX
+  });
   }catch(err){
     next(err);
   }
 });
 
+router.delete('/subtract-role',
+  validatorHandler(subtractroleSchema,'body'),
+  async(req, res,next) => {
+  try{
+    const { roleId,usuarioId } = req.body;
+  const delX = await service.subtractRole(roleId,usuarioId);
+  res.json({
+    message: 'deleted',
+    data: delX
+  });
+  }catch(err){
+    next(err);
+  }
+});
 
 
 module.exports=router;

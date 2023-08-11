@@ -4,12 +4,12 @@ const ProveedoresService = require('../services/proveedores.service');
 const service = new ProveedoresService();
 const  {
   createproveedorSchema,
-  updateproveedorSchema,
   getproveedorSchema
   } = require('../schemas/proveedor.schema');
 
   const {getnegocioSchema} = require('../schemas/negocio.schema');
   const validatorHandler = require('../middlewares/validator.handler');
+
   router.get('/:negocioId',
 validatorHandler(getnegocioSchema,'params'),
 async (req,res,next)=>{
@@ -34,27 +34,15 @@ async (req,res,next)=>{
 });
 router.post('/',
 validatorHandler(createproveedorSchema,'body'),
-async (req, res) => {
-  const body = req.body;
-  const Newproveedor = await service.create(body);
-  res.json({
-    message: 'created',
-    data: Newproveedor
-  });
-});
-router.patch('/:negocioId/:proveedorId',
-validatorHandler(getproveedorSchema,'params'),
-validatorHandler(updateproveedorSchema,'body'),
 async (req, res,next) => {
   try{
-    const { negocioId,proveedorId } = req.params;
     const body = req.body;
-    const xupdate = await service.update(negocioId,proveedorId,body);
-    res.json(xupdate);
-  }
-  catch(err){
-    next(err);
-  }
+    const Newproveedor = await service.create(body);
+    res.json({
+      message: 'created',
+      data: Newproveedor
+    });
+  }catch(err){next(err);}
 });
 
 router.delete('/:negocioId/:proveedorId',
@@ -63,7 +51,10 @@ router.delete('/:negocioId/:proveedorId',
   try{
     const { negocioId,proveedorId } = req.params;
   const delX = await service.delete(negocioId,proveedorId);
-  res.json(delX);
+  res.json({
+    message: 'deleted',
+    data: delX
+  });
   }catch(err){
     next(err);
   }

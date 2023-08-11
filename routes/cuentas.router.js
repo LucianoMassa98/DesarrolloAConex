@@ -2,6 +2,7 @@ const express=require('express');
 const router=express.Router();
 const CuentasService = require('../services/cuentas.service');
 const service = new CuentasService();
+
 const  {
   createcuentaSchema,
   updatecuentaSchema,
@@ -9,7 +10,9 @@ const  {
   } = require('../schemas/cuenta.schema');
 
   const {getnegocioSchema} = require('../schemas/negocio.schema');
+
   const validatorHandler = require('../middlewares/validator.handler');
+
   router.get('/:negocioId',
 validatorHandler(getnegocioSchema,'params'),
 async (req,res,next)=>{
@@ -34,13 +37,15 @@ async (req,res,next)=>{
 });
 router.post('/',
 validatorHandler(createcuentaSchema,'body'),
-async (req, res) => {
-  const body = req.body;
-  const Newcuenta = await service.create(body);
-  res.json({
-    message: 'created',
-    data: Newcuenta
-  });
+async (req, res,next) => {
+  try{
+    const body = req.body;
+    const Newcuenta = await service.create(body);
+    res.json({
+      message: 'created',
+      data: Newcuenta
+    });
+  }catch(err){next(err);}
 });
 router.patch('/:negocioId/:cuentaId',
 validatorHandler(getcuentaSchema,'params'),
@@ -50,7 +55,10 @@ async (req, res,next) => {
     const { negocioId,cuentaId } = req.params;
     const body = req.body;
     const xupdate = await service.update(negocioId,cuentaId,body);
-    res.json(xupdate);
+    res.json({
+      message: 'updated',
+      data: xupdate
+    });
   }
   catch(err){
     next(err);
@@ -63,7 +71,10 @@ router.delete('/:negocioId/:cuentaId',
   try{
     const { negocioId,cuentaId } = req.params;
   const delX = await service.delete(negocioId,cuentaId);
-  res.json(delX);
+  res.json({
+    message: 'deleted',
+    data: delX
+  });
   }catch(err){
     next(err);
   }

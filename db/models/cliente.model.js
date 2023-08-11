@@ -1,6 +1,7 @@
 const {Model,DataTypes, Sequelize} = require('sequelize');
 const {NEGOCIO_TABLE}=require('../models/negocio.model');
-const {CUENTA_TABLE}=require('../models/cuenta.model');
+const {PERFIL_TABLE}=require('../models/perfil.model');
+
 const CLIENTE_TABLE = 'clientes';
 const clienteSchema  = {
   id: {
@@ -21,38 +22,23 @@ const clienteSchema  = {
     onDelete: 'SET NULL'
 
   },
-  cuentaId:{
-    field: 'cuenta_id',
+  perfilId:{
+    field: 'perfil_id',
     allowNull: false,
     type: DataTypes.INTEGER,
     unique: true,
     references: {
-      model: CUENTA_TABLE,
+      model: PERFIL_TABLE,
       key: 'id'
     },
     onUpdate: 'CASCADE',
     onDelete: 'SET NULL'
 
   },
-  nombre: {
+  saldo: {
+    type: DataTypes.DOUBLE,
     allowNull: false,
-    type: DataTypes.STRING,
-  },
-  celular: {
-    allowNull: false,
-    type: DataTypes.STRING,
-  },
-  direccion: {
-    allowNull: false,
-    type: DataTypes.STRING,
-  },
-  email: {
-    allowNull: false,
-    type: DataTypes.STRING,
-  },
-  imagen: {
-    type: DataTypes.STRING,
-    allowNull: true,
+    defaultValue: 0
   },
   createdAt: {
     allowNull: false,
@@ -66,8 +52,9 @@ class Cliente extends Model{
   // crear metodos estaticos
   static associate(models){
     this.belongsTo(models.Negocio, {as: 'negocio'});
-    this.belongsTo(models.Cuenta, {as: 'cuenta'});
     this.hasMany(models.Venta, {as: 'ventas', foreignKey: 'clienteId'});
+
+    this.belongsTo(models.Perfil, {as: 'perfil'});
 
 
   }

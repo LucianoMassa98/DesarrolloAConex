@@ -50,7 +50,12 @@ async (req, res,next) => {
     const { negocioId,productoId } = req.params;
     const body = req.body;
     const prodUpdate = await service.update(negocioId,productoId,body);
-    res.json(prodUpdate);
+    res.json({
+      message: 'updated',
+      data: prodUpdate
+    });
+
+
   }
   catch(err){
     next(err);
@@ -63,7 +68,10 @@ router.delete('/:negocioId/:productoId',
   try{
     const { negocioId,productoId } = req.params;
   const delProd = await service.delete(negocioId,productoId);
-  res.json(delProd);
+  res.json({
+    message: 'deleted',
+    data: delProd
+  });
   }catch(err){
     next(err);
   }

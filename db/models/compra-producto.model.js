@@ -38,7 +38,7 @@ const compraProductoSchema =  {
     allowNull: false,
     type: DataTypes.DOUBLE
   },
-  costo: {
+  valor: {
     allowNull: false,
     type: DataTypes.DOUBLE
   },

@@ -1,46 +1,71 @@
 const joi = require('joi');
-const compraId = joi.number().positive();
-const negocioId = joi.number().positive();
-const proveedorId = joi.number().positive();
-const productoId = joi.number().integer();
-const usuarioId = joi.number().positive();
-const fechaEntrega =  joi.date();
+const id = joi.number().integer();
 const fecha = joi.date();
 const cantidad = joi.number().positive();
-const costo = joi.number().positive();
+const valor = joi.number().positive();
 const confirmDeposito = joi.boolean();
 const confirmPago = joi.boolean();
 const limit = joi.number().integer();
 const offset = joi.number().integer();
 const createcompraSchema = joi.object({
-  negocioId: negocioId.required(),
-
-  proveedorId: proveedorId.required(),
-  usuarioId: usuarioId.required(),
-  fechaEntrega: fechaEntrega
+  negocioId: id.required(),
+  proveedorId: id.required(),
+  usuarioId: id.required()
 });
 const updatecompraSchema = joi.object({
-  fechaEntrega,
+
   confirmDeposito,
   confirmPago
 });
 const getcompraSchema = joi.object({
-  negocioId: negocioId.required(),
-  compraId: compraId.required()
+  negocioId: id.required(),
+  compraId: id.required()
 });
 
 const addItemSchema = joi.object({
-  compraId: compraId.required(),
-  productoId: productoId.required(),
+  negocioId: id.required(),
+  compraId: id.required(),
+  productoId: id.required(),
   cantidad: cantidad.required(),
-  costo: costo.required()
+  valor: valor.required()
 
 });
-const subractItemSchema = joi.object({
-  compraId: compraId.required(),
-  productoId: productoId.required()
+const subItemSchema = joi.object({
+  negocioId: id.required(),
+  compraId: id.required(),
+  productoId: id.required()
 
 });
+
+const addPagoSchema = joi.object({
+  negocioId: id.required(),
+  compraId: id.required(),
+  cuentaId: id.required(),
+  monto: valor.required()
+
+});
+const subPagoSchema = joi.object({
+  negocioId: id.required(),
+  compraId: id.required(),
+  pagoId: id.required()
+
+});
+
+const addPagoPendienteSchema = joi.object({
+  negocioId: id.required(),
+  compraId: id.required(),
+  cuentaId: id.required(),
+  monto: valor.required()
+
+});
+const subPagoPendienteSchema = joi.object({
+  negocioId: id.required(),
+  compraId: id.required(),
+  pagoId: id.required()
+
+});
+
+
 const queryCompraSchema = joi.object({
   limit,
   offset,
@@ -56,7 +81,11 @@ module.exports = {
   createcompraSchema,
   updatecompraSchema,
   getcompraSchema,
-  addItemSchema,
   queryCompraSchema,
-  subractItemSchema
+  addItemSchema,
+  subItemSchema,
+  addPagoSchema,
+  subPagoSchema,
+  addPagoPendienteSchema,
+  subPagoPendienteSchema,
   };

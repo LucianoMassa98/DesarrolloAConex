@@ -1,12 +1,12 @@
 const joi = require('joi');
-const id = joi.string();
+const id = joi.number().integer();
 const nombre = joi.string().min(3);
 const importe =  joi.number().positive();
 const creategastoSchema = joi.object({
   negocioId: id.required(),
-  usuarioId_E: id.required(),
-  usuarioId_R: id.required(),
-  cuentaId: id.required(),
+  usuarioId: id.required(),
+  cuentaEmisorId: id.required(),
+  cuentaReceptorId: id.required(),
   monto: importe.required()
 });
 const updategastoSchema = joi.object({

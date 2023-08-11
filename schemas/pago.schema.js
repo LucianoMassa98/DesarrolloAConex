@@ -9,7 +9,6 @@ const cuentaId = joi.number().integer();
 const createpagoSchema = joi.object({
   negocioId: negocioId.required(),
   compraId: compraId.required(),
-  proveedorId: proveedorId.required(),
   cuentaId: cuentaId.required(),
   monto: monto.required()
 });

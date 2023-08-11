@@ -38,7 +38,7 @@ const ventaProductoSchema =  {
     allowNull: false,
     type: DataTypes.DOUBLE
   },
-  precio: {
+  valor: {
     allowNull: false,
     type: DataTypes.DOUBLE
   },

@@ -20,6 +20,12 @@ const cuentaSchema  = {
     onDelete: 'SET NULL'
 
   },
+  codigo:{
+    allowNull: false,
+    type: DataTypes.STRING,
+    unique: true
+
+  },
   nombre: {
     allowNull: false,
     type: DataTypes.STRING,
@@ -46,20 +52,22 @@ class Cuenta extends Model{
   // crear metodos estaticos
   static associate(models){
     this.belongsTo(models.Negocio, {as: 'negocio'});
-    this.hasOne(models.Cliente, {
-      as: 'cliente',
-      foreignKey: 'cuentaId'
-    });
-    this.hasOne(models.Proveedor, {
-      as: 'proveedor',
-      foreignKey: 'cuentaId'
-    });
-    this.hasOne(models.Usuario, {
-      as: 'usuario',
-      foreignKey: 'cuentaId'
-    });
+
     this.hasMany(models.Pago, {as: 'pagos', foreignKey: 'cuentaId'});
     this.hasMany(models.Cobro, {as: 'cobros', foreignKey: 'cuentaId'});
+
+
+  }
+
+  async compararCodigo(arrayCodigo){
+  const array = this.codigo.split('.');
+    if(array.length<=arrayCodigo.length){
+      for(let i =0; i<arrayCodigo.length; i++){
+        if(arrayCodigo[i]!=array[i]){return false; }
+      }
+      return true;
+    }
+    return false;
 
   }
   // definir otrto estatico para la conexin

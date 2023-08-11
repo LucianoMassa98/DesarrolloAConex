@@ -31,13 +31,15 @@ async (req,res,next)=>{
 });
 router.post('/',
 validatorHandler(createrolSchema,'body'),
-async (req, res) => {
-  const body = req.body;
-  const Newrol = await service.create(body);
-  res.json({
-    message: 'created',
-    data: Newrol
-  });
+async (req, res,next) => {
+  try{
+    const body = req.body;
+    const Newrol = await service.create(body);
+    res.json({
+      message: 'created',
+      data: Newrol
+    });
+  }catch(err){next(err);}
 });
 router.patch('/:rolId',
 validatorHandler(getrolSchema,'params'),
@@ -47,7 +49,10 @@ async (req, res,next) => {
     const { rolId } = req.params;
     const body = req.body;
     const xupdate = await service.update(rolId,body);
-    res.json(xupdate);
+    res.json({
+      message: 'updated',
+      data: xupdate
+    });
   }
   catch(err){
     next(err);
@@ -60,7 +65,10 @@ router.delete('/:rolId',
   try{
     const { rolId } = req.params;
   const delX = await service.delete(rolId);
-  res.json(delX);
+  res.json({
+    message: 'deleted',
+    data: delX
+  });
   }catch(err){
     next(err);
   }

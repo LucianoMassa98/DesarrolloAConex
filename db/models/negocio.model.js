@@ -43,12 +43,12 @@ class Negocio extends Model{
     this.hasMany(models.Proveedor , {  as: 'proveedores',  foreignKey: 'negocioId' });
     this.hasMany(models.Usuario, {as: 'usuarios', foreignKey: 'negocioId'});
     this.hasMany(models.Cuenta, {as: 'cuentas', foreignKey: 'negocioId'});
-    this.hasMany(models.Deposito, {as: 'depositos', foreignKey: 'negocioId'});
     this.hasMany(models.Descuento, {as: 'descuentos', foreignKey: 'negocioId'});
     this.hasMany(models.Pago, {as: 'pagos', foreignKey: 'negocioId'});
     this.hasMany(models.Compra, {as: 'compras', foreignKey: 'negocioId'});
     this.hasMany(models.Venta, {as: 'ventas', foreignKey: 'negocioId'});
     this.hasMany(models.Cobro, {as: 'cobros', foreignKey: 'negocioId'});
+    this.hasMany(models.Gasto, {as: 'gastos', foreignKey: 'negocioId'});
   }
   // definir otrto estatico para la conexin
   static config(sequelize){

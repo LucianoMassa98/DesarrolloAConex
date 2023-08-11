@@ -46,12 +46,6 @@ const compraSchema  = {
     onDelete: 'SET NULL'
 
   },
-  fechaEntrega: {
-    allowNull: false,
-    type: DataTypes.DATE,
-    field: 'fecha_entrega',
-    defaultValue: Sequelize.NOW
-  },
   confirmDeposito: {
     allowNull: false,
     field: 'confirm_depopsito',
@@ -64,13 +58,19 @@ const compraSchema  = {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   },
+  confirmPagoPendiente: {
+    allowNull: false,
+    field: 'confirm_pago_pendiente',
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,
     field: 'create_at',
     defaultValue: Sequelize.NOW
-  }
-  ,total:{
+  },
+  total:{
     allowNull: false,
     type: DataTypes.DOUBLE,
     defaultValue: 0
@@ -81,6 +81,8 @@ class Compra extends Model{
   // crear metodos estaticos
   static associate(models){
     this.hasMany(models.Pago, { as: 'pagos', foreignKey: 'compraId'});
+    this.hasMany(models.PagoPendiente, { as: 'pagosPendientes', foreignKey: 'compraId' });
+
     this.belongsTo(models.Negocio, {as: 'negocio'});
     this.belongsTo(models.Proveedor, {as: 'proveedor'});
     this.belongsTo(models.Usuario, {as: 'usuario'});
@@ -95,7 +97,7 @@ class Compra extends Model{
   async calcularTotal(){
       if (this.items.length > 0) {
         return this.items.reduce((total, item) => {
-          return total + (item.CompraProducto.cantidad * item.CompraProducto.costo);
+          return total + (item.CompraProducto.cantidad * item.CompraProducto.valor);
         }, 0);
       }
       return 0;

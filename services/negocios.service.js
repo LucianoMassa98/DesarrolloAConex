@@ -9,8 +9,8 @@ class NegociosService {
   }
   async find(){
 
-return {dat: 32};
-    const rta = await models.Negocio.findAll({include:['categorias','productos','usuarios','clientes','proveedores']});
+
+    const rta = await models.Negocio.findAll();
     return rta;
   }
   async findOne(id){

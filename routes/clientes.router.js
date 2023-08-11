@@ -4,7 +4,6 @@ const ClientesService = require('../services/clientes.service');
 const service = new ClientesService();
 const  {
   createclienteSchema,
-  updateclienteSchema,
   getclienteSchema
   } = require('../schemas/cliente.schema');
 
@@ -35,28 +34,17 @@ async (req,res,next)=>{
 });
 router.post('/',
 validatorHandler(createclienteSchema,'body'),
-async (req, res) => {
-  const body = req.body;
-  const Newcliente = await service.create(body);
-  res.json({
-    message: 'created',
-    data: Newcliente
-  });
-});
-router.patch('/:negocioId/:clienteId',
-validatorHandler(getclienteSchema,'params'),
-validatorHandler(updateclienteSchema,'body'),
 async (req, res,next) => {
   try{
-    const { negocioId,clienteId } = req.params;
     const body = req.body;
-    const cliUpdate = await service.update(negocioId,clienteId,body);
-    res.json(cliUpdate);
-  }
-  catch(err){
-    next(err);
-  }
+    const Newcliente = await service.create(body);
+    res.json({
+      message: 'created',
+      data: Newcliente
+    });
+  }catch(err){next(err);}
 });
+
 
 router.delete('/:negocioId/:clienteId',
   validatorHandler(getclienteSchema,'params'),
@@ -64,7 +52,7 @@ router.delete('/:negocioId/:clienteId',
   try{
     const { negocioId,clienteId } = req.params;
   const delClie = await service.delete(negocioId,clienteId);
-  res.json(delClie);
+  res.json({message:'deleted',data:delClie});
   }catch(err){
     next(err);
   }

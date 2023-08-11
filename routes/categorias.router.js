@@ -24,17 +24,18 @@ async (req,res,next)=>{
     next(err);
   }
 });
-router.get('/:negocioId/:id',
+router.get('/:negocioId/:categoriaId',
 validatorHandler(getcategoriaSchema, 'params'),
 async (req,res,next)=>{
   try{
-    const{negocioId,id}=req.params;
-  const categoria = await service.findOne(negocioId,id);
+    const{negocioId,categoriaId}=req.params;
+  const categoria = await service.findOne(negocioId,categoriaId);
   res.json(categoria);
   }catch(err){
     next(err);
   }
 });
+
 router.post('/',
 validatorHandler(createcategoriaSchema,'body'),
 async (req, res,next) => {
@@ -45,28 +46,28 @@ async (req, res,next) => {
     data: Newcategoria
   });}catch(err){next(err);}
 });
-router.patch('/:negocioId/:id',
+router.patch('/:negocioId/:categoriaId',
 validatorHandler(getcategoriaSchema,'params'),
 validatorHandler(updatecategoriaSchema,'body'),
 async (req, res,next) => {
   try{
-    const { negocioId,id } = req.params;
+    const { negocioId,categoriaId } = req.params;
     const body = req.body;
-    const prodUpdate = await service.update(negocioId,id,body);
-    res.json(prodUpdate);
+    const prodUpdate = await service.update(negocioId,categoriaId,body);
+    res.json({message: 'updated',data:prodUpdate});
   }
   catch(err){
     next(err);
   }
 });
 
-router.delete('/:negocioId/:id',
+router.delete('/:negocioId/:categoriaId',
   validatorHandler(getcategoriaSchema,'params'),
   async(req, res,next) => {
   try{
-    const { negocioId,id } = req.params;
-  const delProd = await service.delete(negocioId,id);
-  res.json(delProd);
+    const { negocioId,categoriaId } = req.params;
+  const delProd = await service.delete(negocioId,categoriaId);
+  res.json({message:'deleted',data:delProd});
   }catch(err){
     next(err);
   }
