@@ -20,6 +20,11 @@ const {ROLE_USUARIO_TABLE,roleUsuarioSchema}=require('../models/roleUsuario.mode
 const {COBRO_PENDIENTE_TABLE,cobroPendienteSchema}=require('../models/cobroPendiente.model');
 const {PAGO_PENDIENTE_TABLE,pagoPendienteSchema}=require('../models/pagoPendiente.model');
 
+const {CAPITAL_TABLE,capitalSchema}=require('../models/capital.model');
+const {CAPITAL_CUENTA_TABLE,capitalCuentaSchema}=require('../models/capital-cuenta.model');
+const {CONSOLIDADO_TABLE,consolidadoSchema}=require('../models/consolidado.model');
+const {CONSOLIDADO_PRODUCTO_TABLE,consolidadoProductoSchema}=require('../models/consolidado-producto.model');
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable(NEGOCIO_TABLE,negocioSchema);
@@ -42,9 +47,19 @@ module.exports = {
     await queryInterface.createTable(ROLE_USUARIO_TABLE,roleUsuarioSchema);
     await queryInterface.createTable(COBRO_PENDIENTE_TABLE,cobroPendienteSchema);
     await queryInterface.createTable(PAGO_PENDIENTE_TABLE,pagoPendienteSchema);
+
+    await queryInterface.createTable(CAPITAL_TABLE,capitalSchema);
+    await queryInterface.createTable(CAPITAL_CUENTA_TABLE,capitalCuentaSchema);
+    await queryInterface.createTable(CONSOLIDADO_TABLE,consolidadoSchema);
+    await queryInterface.createTable(CONSOLIDADO_PRODUCTO_TABLE,consolidadoProductoSchema);
   },
 
   async down (queryInterface, Sequelize) {
+    await queryInterface.dropTable(CONSOLIDADO_PRODUCTO_TABLE);
+    await queryInterface.dropTable(CONSOLIDADO_TABLE);
+    await queryInterface.dropTable(CAPITAL_CUENTA_TABLE);
+    await queryInterface.dropTable(CAPITAL_TABLE);
+
     await queryInterface.dropTable(PAGO_PENDIENTE_TABLE);
     await queryInterface.dropTable(COBRO_PENDIENTE_TABLE);
     await queryInterface.dropTable(ROLE_USUARIO_TABLE);

@@ -19,6 +19,12 @@ const {Role, roleSchema}= require('./role.model');
 const {Perfil, perfilSchema}= require('./perfil.model');
 const {RoleUsuario, roleUsuarioSchema}= require('./roleUsuario.model');
 const {PagoPendiente, pagoPendienteSchema}= require('./pagoPendiente.model');
+
+const {Capital,capitalSchema}= require('./capital.model');
+const {CapitalCuenta, capitalCuentaSchema}= require('./capital-cuenta.model');
+const {Consolidado,consolidadoSchema}= require('./consolidado.model');
+const {ConsolidadoProducto, consolidadoProductoSchema}= require('./consolidado-producto.model');
+
 function setupModels(sequelize){
 
 Negocio.init(negocioSchema,Negocio.config(sequelize));
@@ -41,6 +47,10 @@ CompraProducto.init(compraProductoSchema,CompraProducto.config(sequelize));
 RoleUsuario.init(roleUsuarioSchema,RoleUsuario.config(sequelize));
 CobroPendiente.init(cobroPendienteSchema,CobroPendiente.config(sequelize));
 PagoPendiente.init(pagoPendienteSchema,PagoPendiente.config(sequelize));
+Capital.init(capitalSchema,Capital.config(sequelize));
+CapitalCuenta.init(capitalCuentaSchema,CapitalCuenta.config(sequelize));
+Consolidado.init(consolidadoSchema,Consolidado.config(sequelize));
+ConsolidadoProducto.init(consolidadoProductoSchema,ConsolidadoProducto.config(sequelize));
 
 Negocio.associate(sequelize.models);
 Perfil.associate(sequelize.models);
@@ -60,6 +70,9 @@ Gasto.associate(sequelize.models);
 RoleUsuario.associate(sequelize.models);
 CobroPendiente.associate(sequelize.models);
 PagoPendiente.associate(sequelize.models);
-
+Capital.associate(sequelize.models);
+CapitalCuenta.associate(sequelize.models);
+Consolidado.associate(sequelize.models);
+ConsolidadoProducto.associate(sequelize.models);
 }
 module.exports = setupModels;

@@ -23,7 +23,7 @@ const cuentaSchema  = {
   codigo:{
     allowNull: false,
     type: DataTypes.STRING,
-    unique: true
+    unique: false
 
   },
   nombre: {
