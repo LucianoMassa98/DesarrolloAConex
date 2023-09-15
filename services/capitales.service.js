@@ -59,7 +59,7 @@ class CapitalesService {
     });
     const rta = await capital.destroy();
     if(!rta){throw boom.notFound("No se pudo eliminar el capital");}
-    return rta;
+    return capital;
   }
 
   async addItem(capitalId, cuenta) {

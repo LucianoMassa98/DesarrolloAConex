@@ -28,7 +28,7 @@ class ProveedoresService {
     const proveedor = await this.findOne(negocioId,proveedorId);
     const rta = await proveedor.destroy();
     if(!rta){ throw boom.notFound('proveedor Not Found');}
-    return rta;
+    return proveedor;
   }
 
   async sumarSaldo(negocioId,proveedorId,monto){

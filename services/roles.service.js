@@ -25,7 +25,7 @@ class RolesService {
     const rol = await this.findOne(id);
     const rta = await rol.destroy();
     if(!rta){throw boom.notFound("Rol not found");}
-    return rta;
+    return rol;
   }
 }
 module.exports = RolesService;

@@ -144,7 +144,7 @@ class VentasService {
     if (!rta) {
       throw boom.notFound('venta Not Found');
     }
-    return rta;
+    return venta;
   }
   async confirmVenta(data){
     const venta = await this.findOne(data.negocioId,data.ventaId);
@@ -203,7 +203,7 @@ class VentasService {
       throw boom.notFound('total not found');
     }
 
-    return true;
+    return items;
   }
   async addCobro(data){
     const venta = await this.confirmVenta(data);

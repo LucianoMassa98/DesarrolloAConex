@@ -27,7 +27,7 @@ class DescuentosService {
     const descuento = await this.findOne(negocioId,descuentoId);
     const rta = await descuento.destroy();
     if(!rta){ throw boom.notFound('descuento Not Found');}
-    return rta;
+    return descuento;
   }
 }
 module.exports = DescuentosService;

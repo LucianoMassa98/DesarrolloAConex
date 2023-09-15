@@ -49,8 +49,14 @@ class NegociosService {
   }
   async delete(id) {
     const newNegocio = await this.findOne(id);
+    const cuentas = await cuentasService.find(id);
+
+    cuentas.forEach(async element => {
+      const res = await element.destroy();
+      if(!res){ throw boom.notFound("error al eliminar las cuentas del negocio"); }
+    });
     const rta = await newNegocio.destroy();
-    return rta;
+    return newNegocio;
   }
 
 

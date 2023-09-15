@@ -35,7 +35,7 @@ class CategoriasService {
     const categoria = await this.findOne(negocioId, categoriaId);
     const rta = await categoria.destroy();
     if(!rta){throw boom.notFound("Categoria not found");}
-    return rta;
+    return categoria;
   }
 }
 module.exports = CategoriasService;

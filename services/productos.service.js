@@ -57,7 +57,7 @@ class ProductoService{
   async delete(negocioId,productoId){
     const producto = await this.findOne(negocioId,productoId);
     const rta = await producto.destroy();
-    return rta;
+    return producto;
   }
 
   async restarCantidad(negocioId,productoId,cantidad){

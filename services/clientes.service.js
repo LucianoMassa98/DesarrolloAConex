@@ -22,7 +22,7 @@ class ClientesService {
     const cliente = await this.findOne(negocioId,clienteId);
     const rta = await cliente.destroy();
     if(!rta){ throw boom.notFound('cliente Not Found');}
-    return rta;
+    return cliente;
   }
 
   async sumarSaldo(negocioId,clienteId,monto){

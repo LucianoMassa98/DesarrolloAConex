@@ -42,7 +42,7 @@ class CuentasService {
     const cuenta = await this.findOne(negocioId,cuentaId);
     const rta = await cuenta.destroy();
     if(!rta){ throw boom.notFound('Cuenta Not Found');}
-    return rta;
+    return cuenta;
   }
 
   async comparar(cuentaId,arrayCode){

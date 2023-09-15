@@ -23,7 +23,7 @@ class PagosService {
     const pago = await this.findOne(negocioId,pagoId);
     const rta = await pago.destroy();
     if(!rta){ throw boom.notFound('El pago no se pudo eliminar');}
-    return rta;
+    return pago;
   }
 }
 module.exports = PagosService;

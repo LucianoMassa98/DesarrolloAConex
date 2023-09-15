@@ -34,7 +34,7 @@ class pagosPendientesService {
     if (!rta) {
       throw boom.notFound('cobro Not Found');
     }
-    return rta;
+    return cobro;
   }
 }
 module.exports = pagosPendientesService;

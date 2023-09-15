@@ -27,7 +27,7 @@ class PerfilesService {
     const perfil = await this.findOne(perfilId);
     const rta = await perfil.destroy();
     if(!rta){throw boom.notFound('Perfil not found');}
-    return rta;
+    return perfil;
   }
 }
 module.exports = PerfilesService;

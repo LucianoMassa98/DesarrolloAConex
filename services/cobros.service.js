@@ -32,7 +32,7 @@ class CobrosService {
     const cobro = await this.findOne(negocioId,cobroId);
     const rta = await cobro.destroy();
     if(!rta){ throw boom.notFound('cobro Not Found');}
-    return rta;
+    return cobro;
   }
 }
 module.exports = CobrosService;

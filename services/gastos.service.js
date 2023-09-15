@@ -27,7 +27,7 @@ class GastosService {
     const gasto = await this.findOne(negocioId,gastoId);
     const rta = await gasto.destroy();
     if(!rta){ throw boom.notFound('gasto Not Found');}
-    return rta;
+    return gasto;
   }
 }
 module.exports = GastosService;
