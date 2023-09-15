@@ -82,7 +82,15 @@ class UsuariosService {
     if (!rta) {
       throw boom.notFound('User not found');
     }
-    return user;
+    const usuarioSinContraseña = {
+      id: user.id,
+      negocio: user.negocioId,
+      username: user.username,
+      perfilId: user.perfilId,
+      createdAt: user.createdAt
+
+    };
+    return usuarioSinContraseña;
   }
 }
 module.exports = UsuariosService;
