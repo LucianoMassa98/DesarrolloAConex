@@ -32,7 +32,7 @@ const roleUsuarioSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   }
 }
 

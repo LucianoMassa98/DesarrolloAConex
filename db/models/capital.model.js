@@ -17,7 +17,7 @@ const capitalSchema = {
       key: 'id',
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
   },
   saldo: {
     allowNull: false,

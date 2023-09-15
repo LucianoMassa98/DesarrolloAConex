@@ -21,7 +21,7 @@ const capitalCuentaSchema =  {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   cuentaId: {
     field: 'cuenta_id',
@@ -32,7 +32,7 @@ const capitalCuentaSchema =  {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   debe: {
     allowNull: false,

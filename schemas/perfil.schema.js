@@ -12,9 +12,9 @@ const createperfilSchema = joi.object({
 
   nombre: nombre.required(),
   apellido: apellido.required(),
-  celular: celular.required(),
-  direccion: direccion.required(),
-  email,
+  celular,
+  direccion,
+  email: email.required(),
   imagen
 
 });

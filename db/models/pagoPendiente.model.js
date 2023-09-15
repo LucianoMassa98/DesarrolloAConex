@@ -19,7 +19,7 @@ const pagoPendienteSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
 
   },
   compraId:{

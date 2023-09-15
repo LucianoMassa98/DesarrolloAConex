@@ -21,28 +21,7 @@ class ComprasService {
     if(!dat){throw boom.notFound('Compra Not Found');}
     return dat;
   }
-  async addItem(data){
-    const dat = await models.CompraProducto.create(data);
-    const compra = await models.Compra.findByPk(data.compraId,{
-        include:['items']
-    });
-   const total =  await compra.calcularTotal();
-   const rta = await compra.update({total});
 
-    return rta;
-  }
-  async subtractItems(data){
-    const items = await models.CompraProducto.findAll({
-      where:{
-        compraId: data.compraId,
-        productoId: data.productoId
-      }
-    });
-    items.forEach(async (item) => {
-      await item.destroy();
-    });
-    return true;
-  }
    async find(id,query){
 
     const options= {
@@ -64,13 +43,55 @@ class ComprasService {
     }else{
       if(confirmDeposito){options.where.confirmDeposito = confirmDeposito;}
     }
-      const negocio  = await models.Negocio.findByPk(id,{include:[options]});
+
+
+    const includeOptions = [
+      {
+        model: models.Compra, // Modelo Venta
+        as: 'compras', // Alias 'ventas'
+        include: [
+          {
+            model: models.Proveedor, // Modelo Cliente
+            as: 'proveedor', // Alias 'cliente'
+            include: ['perfil'], // Incluir el perfil del cliente
+          },
+          {
+            model: models.Usuario, // Modelo Usuario
+            as: 'usuario', // Alias 'usuario'
+            attributes: ['id','negocioId','username'],
+            include: [
+              {
+                model: models.Perfil, // Incluye el modelo de perfil del usuario
+                as: 'perfil', // Alias 'perfil' para el modelo de perfil
+              },
+            ], // Incluir el perfil del usuario
+          },
+        ],
+      },
+    ];
+      const negocio  = await models.Negocio.findByPk(id,{include:includeOptions});
       if(!negocio){ throw boom.notFound('Compras Not Found');}
       return negocio.compras;
     }
   async findOne(negocioId,compraId){
     const compra = await models.Compra.findByPk(compraId,{
-      include:[{association: 'proveedor'},'items','pagos']
+      include:[
+        {
+          model: models.Proveedor, // Modelo Cliente
+          as: 'proveedor', // Alias 'cliente'
+          include: ['perfil'], // Incluir el perfil del cliente
+        },
+        {
+          model: models.Usuario, // Modelo Usuario
+          as: 'usuario', // Alias 'usuario'
+          attributes: ['id','negocioId','username'],
+          include: [
+            {
+              model: models.Perfil, // Incluye el modelo de perfil del usuario
+              as: 'perfil', // Alias 'perfil' para el modelo de perfil
+            },
+          ], // Incluir el perfil del usuario
+        },'items','pagos']
     });
 
     if(!compra){ throw boom.notFound('Compra Not Found');}

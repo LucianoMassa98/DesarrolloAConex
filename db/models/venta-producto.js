@@ -21,7 +21,7 @@ const ventaProductoSchema =  {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   productoId: {
     field: 'producto_id',

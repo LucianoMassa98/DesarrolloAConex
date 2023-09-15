@@ -7,7 +7,15 @@ class UsuariosService {
     if (!dat) {
       throw boom.notFound('Usuario o Contraseña not found');
     }
-    return dat;
+    const usuarioSinContraseña = {
+      id: dat.id,
+      negocio: dat.negocioId,
+      username: dat.username,
+      createdAt: dat.createdAt
+
+    };
+    return usuarioSinContraseña;
+
   }
   async addRole(data) {
     const dat = await models.RoleUsuario.create(data);
@@ -44,19 +52,40 @@ class UsuariosService {
     if (user.dataValues.password != password) {
       throw boom.notFound('Usuario o Contraseña not found');
     }
-    return user;
+    const usuarioSinContraseña = {
+      id: user.id,
+      negocio: user.negocioId,
+      username: user.username,
+      perfilId: user.perfilId,
+      createdAt: user.createdAt,
+      perfil: user.perfil,
+      roles: user.roles
+    };
+    return usuarioSinContraseña;
   }
   async find(negocioId) {
     const negocio = await models.Negocio.findByPk(negocioId, {
-      include: ['usuarios'],
+      include: [{
+        model: models.Usuario,
+        as: 'usuarios', // Asegúrate de que esta coincida con la definición de tu asociación en el modelo Negocio
+        attributes: ['id','negocioId','username'],
+        include: [
+          {
+            model: models.Perfil, // Agrega el modelo Perfil
+            as: 'perfil', // Asegúrate de que esta coincida con la definición de tu asociación en el modelo Usuario
+          },
+        ],
+      }],
     });
     if (!negocio) {
       throw boom.notFound('Negocio not found');
     }
+
     return negocio.usuarios;
   }
   async findOne(negocioId, usuarioId) {
     const user = await models.Usuario.findByPk(usuarioId, {
+      attributes: ['id','negocioId','username'],
       include: ['perfil'],
     });
     if (!user) {
@@ -66,7 +95,8 @@ class UsuariosService {
     if (user.dataValues.negocioId != negocioId) {
       throw boom.notFound('El usuario no pertenece al negocio');
     }
-    return user;
+
+   return user;
   }
   async update(negocioId, usuarioId, changes) {
     const user = await this.findOne(negocioId, usuarioId);
@@ -74,7 +104,16 @@ class UsuariosService {
     if (!rta) {
       throw boom.notFound('User not found');
     }
-    return rta;
+    const usuarioSinContraseña = {
+      id: rta.id,
+      negocio: rta.negocioId,
+      username: rta.username,
+      perfilId: rta.perfilId,
+      createdAt: rta.createdAt,
+      perfil: rta.perfil,
+      role: rta.role
+    };
+    return usuarioSinContraseña;
   }
   async delete(negocioId, usuarioId) {
     const user = await this.findOne(negocioId, usuarioId);
@@ -82,15 +121,8 @@ class UsuariosService {
     if (!rta) {
       throw boom.notFound('User not found');
     }
-    const usuarioSinContraseña = {
-      id: user.id,
-      negocio: user.negocioId,
-      username: user.username,
-      perfilId: user.perfilId,
-      createdAt: user.createdAt
 
-    };
-    return usuarioSinContraseña;
+    return user;
   }
 }
 module.exports = UsuariosService;

@@ -20,7 +20,7 @@ const pagoSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
 
   },
   compraId:{

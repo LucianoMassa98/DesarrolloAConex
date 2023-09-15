@@ -22,7 +22,7 @@ const usuarioSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
 
   },
   username: {

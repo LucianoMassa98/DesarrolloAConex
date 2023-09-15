@@ -19,7 +19,7 @@ const compraSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
 
   },
   proveedorId:{

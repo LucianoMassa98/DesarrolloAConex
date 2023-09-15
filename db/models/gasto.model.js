@@ -20,7 +20,7 @@ const gastoSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
 
   },
   usuarioId:{

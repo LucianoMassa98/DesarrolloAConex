@@ -17,7 +17,7 @@ const consolidadoSchema = {
       key: 'id',
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
   },
   totalVenta: {
     allowNull: false,

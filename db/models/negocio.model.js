@@ -37,18 +37,18 @@ const negocioSchema  = {
 class Negocio extends Model{
   // crear metodos estaticos
   static associate(models){
-    this.hasMany(models.Producto , {  as: 'productos',  foreignKey: 'negocioId' });
-    this.hasMany(models.Categoria , {  as: 'categorias',  foreignKey: 'negocioId' });
-    this.hasMany(models.Cliente , {  as: 'clientes',  foreignKey: 'negocioId' });
-    this.hasMany(models.Proveedor , {  as: 'proveedores',  foreignKey: 'negocioId' });
-    this.hasMany(models.Usuario, {as: 'usuarios', foreignKey: 'negocioId'});
-    this.hasMany(models.Cuenta, {as: 'cuentas', foreignKey: 'negocioId'});
-    this.hasMany(models.Descuento, {as: 'descuentos', foreignKey: 'negocioId'});
-    this.hasMany(models.Pago, {as: 'pagos', foreignKey: 'negocioId'});
-    this.hasMany(models.Compra, {as: 'compras', foreignKey: 'negocioId'});
-    this.hasMany(models.Venta, {as: 'ventas', foreignKey: 'negocioId'});
-    this.hasMany(models.Cobro, {as: 'cobros', foreignKey: 'negocioId'});
-    this.hasMany(models.Gasto, {as: 'gastos', foreignKey: 'negocioId'});
+    this.hasMany(models.Producto , {  as: 'productos', foreignKey: 'negocioId',onDelete: 'CASCADE' });
+    this.hasMany(models.Categoria , {  as: 'categorias', foreignKey: 'negocioId',onDelete: 'CASCADE' });
+    this.hasMany(models.Cliente , {  as: 'clientes', foreignKey: 'negocioId',onDelete: 'CASCADE' });
+    this.hasMany(models.Proveedor , {  as: 'proveedores', foreignKey: 'negocioId',onDelete: 'CASCADE' });
+    this.hasMany(models.Usuario, {as: 'usuarios', foreignKey: 'negocioId',onDelete: 'CASCADE'});
+    this.hasMany(models.Cuenta, {as: 'cuentas', foreignKey: 'negocioId',onDelete: 'CASCADE'});
+    this.hasMany(models.Descuento, {as: 'descuentos', foreignKey: 'negocioId',onDelete: 'CASCADE'});
+    this.hasMany(models.Pago, {as: 'pagos', foreignKey: 'negocioId',onDelete: 'CASCADE'});
+    this.hasMany(models.Compra, {as: 'compras', foreignKey: 'negocioId',onDelete: 'CASCADE'});
+    this.hasMany(models.Venta, {as: 'ventas', foreignKey: 'negocioId',onDelete: 'CASCADE'});
+    this.hasMany(models.Cobro, {as: 'cobros', foreignKey: 'negocioId',onDelete: 'CASCADE'});
+    this.hasMany(models.Gasto, {as: 'gastos', foreignKey: 'negocioId',onDelete: 'CASCADE'});
   }
   // definir otrto estatico para la conexin
   static config(sequelize){
