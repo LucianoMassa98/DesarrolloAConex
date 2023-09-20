@@ -11,31 +11,22 @@ class CapitalesService {
     const negocios = await negociosService.find();
     negocios.forEach(async element => {
       const negocioId = element.id;
-      const newCapital = await models.Capital.create(negocioId);
+      const newCapital = await models.Capital.create({negocioId});
       if(!newCapital){ throw boom.notFound("No se pudo crear el capital");}
       const cuentas = await cuentasService.find(negocioId);
       cuentas.forEach(async element => {
           await this.addItem(newCapital.id, element);
-          newCapital =  await newCapital.update({saldo: newCapital.saldo+element.saldo});
+          await newCapital.update({saldo: newCapital.saldo+element.saldo});
         });
     });
 
   }
-  async find(negocioId, query) {
+  async find(negocioId) {
     const options={
       where:{negocioId: negocioId}
     };
-    const {fecha_min, fecha_max}=query;
-    if(!fecha_min && !fecha_max){
-      options.where={
-        ...options.where,
-        createdAt:{
-          [Op.lte]: fecha_min,
-          [Op.gte]: fecha_max
-        }
-      };
-    }
-    const capitales = await models.Capital.find(options);
+
+    const capitales = await models.Capital.findAll(options);
     if(!capitales){ throw boom.notFound("No se encontraron capitales para este negocio");}
     return capitales;
   }
@@ -70,7 +61,7 @@ class CapitalesService {
       haber: cuenta.haber
     });
     if(!newCapitalCuenta){throw boom.notFound("No se pudo agregar correctamente las cuentas al capital!");}
-
+    return newCapitalCuenta;
   }
 
 

@@ -5,7 +5,9 @@ const cron = require('node-cron');
 const app = express();
 const {longError,errorHandler,BoomErrorHandler,ormErrorHandler}= require('./middlewares/error.handler');
 const CapitalesService = require('./services/capitales.service');
-const service = new CapitalesService();
+const serviceCapital = new CapitalesService();
+const ConsolidadosService = require('./services/consolidados.service');
+const serviceConsolidado = new ConsolidadosService();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -30,13 +32,17 @@ app.use(ormErrorHandler);
 app.use(BoomErrorHandler);
 app.use(errorHandler);
 
-cron.schedule('0 10 * * 1', () => {
+cron.schedule('00 06 * * 1', async() => {
   try {
-    console.log('Operación automática ejecutada los Lunes a las 10:00AM');
-    async()=>{ await service.create();}
+    console.log('Operación automática ejecutada los Lunes a las 06:00AM');
+
+      await serviceCapital.create();
+     await serviceConsolidado.create();
+
 
   } catch (error) {
     console.error('Error en la tarea:', error);
+    console.error('No se crearon los informes');
   }
 });
 

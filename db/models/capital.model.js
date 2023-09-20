@@ -16,7 +16,7 @@ const capitalSchema = {
       model: NEGOCIO_TABLE,
       key: 'id',
     },
-    onUpdate: 'CASCADE',
+
     onDelete: 'CASCADE',
   },
   saldo: {

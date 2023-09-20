@@ -19,12 +19,7 @@ const consolidadoSchema = {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   },
-  totalVenta: {
-    allowNull: false,
-    type: DataTypes.DOUBLE,
-    defaultValue: 0,
-  },
-  totalCosto: {
+  montoTotal: {
     allowNull: false,
     type: DataTypes.DOUBLE,
     defaultValue: 0,
@@ -43,10 +38,16 @@ class Consolidado extends Model {
 
     this.belongsTo(models.Negocio, { as: 'negocio' });
     this.belongsToMany(models.Producto, {
-      as: 'items',
+      as: 'productos',
       through: models.ConsolidadoProducto,
-      foreignKey: 'ConsolidadoId',
+      foreignKey: 'consolidadoId',
       otherKey: 'productoId',
+    });
+    this.belongsToMany(models.Venta, {
+      as: 'ventas',
+      through: models.ConsolidadoVenta,
+      foreignKey: 'consolidadoId',
+      otherKey: 'ventaId',
     });
   }
 

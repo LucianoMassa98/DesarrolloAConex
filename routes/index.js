@@ -14,6 +14,7 @@ const rolesRouter = require('./roles.router');
 const usuariosRouter = require('./usuarios.router');
 const ventasRouter = require('./ventas.router');
 const perfilesRouter = require('./perfiles.router');
+const informesRouter = require('./informes.router');
 
 function routerApi(app) {
   const router = express.Router();
@@ -31,5 +32,6 @@ function routerApi(app) {
   router.use('/roles', rolesRouter);
   router.use('/usuarios', usuariosRouter);
   router.use('/perfiles', perfilesRouter);
+  router.use('/informes', informesRouter);
 }
 module.exports = routerApi;

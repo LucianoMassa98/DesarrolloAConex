@@ -14,11 +14,11 @@ const perfilSchema  = {
     type: DataTypes.STRING,
   },
   apellido: {
-    allowNull: true,
+    allowNull: false,
     type: DataTypes.STRING,
   },
   celular: {
-    allowNull: true,
+    allowNull: false,
     type: DataTypes.STRING,
   },
   direccion: {
@@ -32,7 +32,7 @@ const perfilSchema  = {
   },
   imagen: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   }
 }
 

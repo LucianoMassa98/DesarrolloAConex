@@ -1,6 +1,6 @@
 const { models } = require('../libs/sequelize');
 const boom = require('@hapi/boom');
-
+const {Op} = require('sequelize');
 const CuentasService = require('../services/cuentas.service');
 const cuentaservice = new CuentasService();
 const ClientesService = require('../services/clientes.service');
@@ -24,54 +24,64 @@ class VentasService {
     return dat;
   }
   async find(id, query) {
-    const options = {
-      association: 'ventas',
-    };
-    const { limit, offset, fecha, confirmDeposito, confirmCobro } = query;
-    if (limit && offset) {
-      options.limit = limit;
-      options.offset = offset;
-    }
 
-    if (fecha) {
-      options.where.createdAt = {
-        [Op.gte]: fecha,
-        //[Op.lte]: fecha
-      };
-    }
-    if (confirmDeposito && confirmCobro) {
-      options.where.confirmCobro = confirmCobro;
-      options.where.confirmDeposito = confirmDeposito;
-    } else {
-      if (confirmDeposito) {
-        options.where.confirmDeposito = confirmDeposito;
-      }
-    }
-
-    const includeOptions = [
+    let includeOptions = [
       {
         model: models.Venta, // Modelo Venta
         as: 'ventas', // Alias 'ventas'
-        include: [
-          {
-            model: models.Cliente, // Modelo Cliente
-            as: 'cliente', // Alias 'cliente'
-            include: ['perfil'], // Incluir el perfil del cliente
-          },
-          {
-            model: models.Usuario, // Modelo Usuario
-            as: 'usuario', // Alias 'usuario'
-            attributes: ['id','negocioId','username'],
-            include: [
-              {
-                model: models.Perfil, // Incluye el modelo de perfil del usuario
-                as: 'perfil', // Alias 'perfil' para el modelo de perfil
-              },
-            ], // Incluir el perfil del usuario
-          },
-        ],
+        include: [],
+        where:{}
       },
     ];
+    const { limit, offset } = query;
+    if (limit && offset) {
+      includeOptions[0].limit = limit;
+      includeOptions[0].limit = offset;
+    }
+    const { dateDesde, dateHasta } = query;
+    if (dateDesde,dateHasta) {
+      console.log(dateDesde + "----"+dateHasta);
+      includeOptions[0].where.createdAt = {
+        [Op.gte]: dateDesde,
+        [Op.lte]: dateHasta
+      };
+    }
+
+
+    const { confirmDeposito, confirmCobro, confirmCobroPendiente } = query;
+    if (confirmDeposito) {
+      includeOptions[0].where= confirmDeposito;
+    }
+    if (confirmCobro) {
+      includeOptions[0].where= confirmCobro;
+    }
+    if (confirmCobroPendiente) {
+      includeOptions[0].where= confirmCobroPendiente;
+    }
+
+
+    const { detalle } = query;
+    if(detalle){
+
+
+      includeOptions[0].include.push({
+        model: models.Cliente, // Modelo Cliente
+        as: 'cliente', // Alias 'cliente'
+        include: ['perfil'], // Incluir el perfil del cliente
+      });
+      includeOptions[0].include.push({
+          model: models.Usuario, // Modelo Usuario
+          as: 'usuario', // Alias 'usuario'
+          attributes: ['id','negocioId','username'],
+          include: [
+            {
+              model: models.Perfil, // Incluye el modelo de perfil del usuario
+              as: 'perfil', // Alias 'perfil' para el modelo de perfil
+            },
+          ], // Incluir el perfil del usuario
+        });
+    }
+
 
     const negocio = await models.Negocio.findByPk(id, {
       include: includeOptions,
@@ -79,7 +89,6 @@ class VentasService {
     if (!negocio) {
       throw boom.notFound('Ventas Not Found');
     }
-
     return negocio.ventas;
   }
   async findOne(negocioId, ventaId) {

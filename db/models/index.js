@@ -24,6 +24,7 @@ const {Capital,capitalSchema}= require('./capital.model');
 const {CapitalCuenta, capitalCuentaSchema}= require('./capital-cuenta.model');
 const {Consolidado,consolidadoSchema}= require('./consolidado.model');
 const {ConsolidadoProducto, consolidadoProductoSchema}= require('./consolidado-producto.model');
+const {ConsolidadoVenta, consolidadoVentaSchema}= require('./consolidado-venta.model');
 
 function setupModels(sequelize){
 
@@ -51,6 +52,7 @@ Capital.init(capitalSchema,Capital.config(sequelize));
 CapitalCuenta.init(capitalCuentaSchema,CapitalCuenta.config(sequelize));
 Consolidado.init(consolidadoSchema,Consolidado.config(sequelize));
 ConsolidadoProducto.init(consolidadoProductoSchema,ConsolidadoProducto.config(sequelize));
+ConsolidadoVenta.init(consolidadoVentaSchema,ConsolidadoVenta.config(sequelize));
 
 Negocio.associate(sequelize.models);
 Perfil.associate(sequelize.models);
@@ -74,5 +76,6 @@ Capital.associate(sequelize.models);
 CapitalCuenta.associate(sequelize.models);
 Consolidado.associate(sequelize.models);
 ConsolidadoProducto.associate(sequelize.models);
+ConsolidadoVenta.associate(sequelize.models);
 }
 module.exports = setupModels;

@@ -6,7 +6,9 @@ const monto = joi.number().positive();
 const precio = joi.number().positive();
 const confirmDeposito = joi.boolean();
 const confirmCobro = joi.boolean();
-const fecha = joi.date();
+const detalle = joi.boolean();
+const dateDesde = joi.date();
+const dateHasta = joi.date();
 const limit = joi.number().integer();
 const offset = joi.number().integer();
 
@@ -65,8 +67,10 @@ const subCobroPendienteSchema = joi.object({
 const queryCompraSchema = joi.object({
   limit,
   offset,
-  fecha,
+  dateDesde,
+  dateHasta,
   confirmDeposito,
+  detalle,
   confirmCobro: confirmCobro.when('confirm_deposito',{
     is: true,
     then: joi.required()

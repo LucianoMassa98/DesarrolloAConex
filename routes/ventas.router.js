@@ -68,10 +68,10 @@ router.post(
   async (req, res,next) => {
    try{
     const body = req.body;
-    const res = await service.addItem(body);
+    const dat = await service.addItem(body);
     res.json({
       message: 'created item',
-      data: res,
+      data: dat,
     });
    }catch(err){next(err);}
   }
@@ -82,10 +82,10 @@ router.post(
   async (req, res,next) => {
     try{
       const body = req.body;
-    const res = await service.addCobro(body);
+    const dat = await service.addCobro(body);
     res.json({
       message: 'created cobro',
-      data: res,
+      data: dat,
     });
     }catch(err){next(err);}
   }
@@ -95,10 +95,10 @@ router.post(
   validatorHandler(addCobroPendienteSchema, 'body'),
   async (req, res,next) => {
     try{const body = req.body;
-      const res = await service.addCobroPendiente(body);
+      const dat = await service.addCobroPendiente(body);
       res.json({
         message: 'created CobroPendiente',
-        data: res,
+        data: dat,
       });}catch(err){next(err);}
   }
 );

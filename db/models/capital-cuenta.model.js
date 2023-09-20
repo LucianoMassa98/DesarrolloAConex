@@ -20,7 +20,7 @@ const capitalCuentaSchema =  {
       model: CAPITAL_TABLE,
       key: 'id'
     },
-    onUpdate: 'CASCADE',
+
     onDelete: 'CASCADE'
   },
   cuentaId: {
@@ -31,7 +31,7 @@ const capitalCuentaSchema =  {
       model: CUENTA_TABLE,
       key: 'id'
     },
-    onUpdate: 'CASCADE',
+
     onDelete: 'CASCADE'
   },
   debe: {

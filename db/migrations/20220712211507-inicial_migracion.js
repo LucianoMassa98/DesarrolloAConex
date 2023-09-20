@@ -24,6 +24,7 @@ const {CAPITAL_TABLE,capitalSchema}=require('../models/capital.model');
 const {CAPITAL_CUENTA_TABLE,capitalCuentaSchema}=require('../models/capital-cuenta.model');
 const {CONSOLIDADO_TABLE,consolidadoSchema}=require('../models/consolidado.model');
 const {CONSOLIDADO_PRODUCTO_TABLE,consolidadoProductoSchema}=require('../models/consolidado-producto.model');
+const {CONSOLIDADO_VENTA_TABLE,consolidadoVentaSchema}=require('../models/consolidado-venta.model');
 
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -52,9 +53,12 @@ module.exports = {
     await queryInterface.createTable(CAPITAL_CUENTA_TABLE,capitalCuentaSchema);
     await queryInterface.createTable(CONSOLIDADO_TABLE,consolidadoSchema);
     await queryInterface.createTable(CONSOLIDADO_PRODUCTO_TABLE,consolidadoProductoSchema);
+    await queryInterface.createTable(CONSOLIDADO_VENTA_TABLE,consolidadoVentaSchema);
+
   },
 
   async down (queryInterface, Sequelize) {
+    await queryInterface.dropTable(CONSOLIDADO_VENTA_TABLE);
     await queryInterface.dropTable(CONSOLIDADO_PRODUCTO_TABLE);
     await queryInterface.dropTable(CONSOLIDADO_TABLE);
     await queryInterface.dropTable(CAPITAL_CUENTA_TABLE);
