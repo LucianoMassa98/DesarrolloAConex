@@ -44,7 +44,14 @@ class ConsolidadosService {
     const options={
       where:{negocioId: negocioId}
     };
+    const {dateDesde, dateHasta} = query;
 
+    if(dateDesde && dateHasta){
+      options.where.createdAt = {
+        [Op.gte]: dateDesde,
+        [Op.lte]: dateHasta
+      };
+    }
     const capitales = await models.Consolidado.findAll(options);
     if(!capitales){ throw boom.notFound("No se encontraron capitales para este negocio");}
     return capitales;

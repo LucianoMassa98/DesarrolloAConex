@@ -8,13 +8,18 @@ const consolidadosService = new ConsolidadosService();
 
 class InformesService {
   async reporteVentas(negocioId, query) {
-    const consolidado = await consolidadosService.find(negocioId);
+    const consolidado = await consolidadosService.find(negocioId,query);
     return consolidado;
   }
 
   async evolucionCapital(negocioId, query) {
 
-    const capitales = await capitalesService.find(negocioId);
+    const capitales = await capitalesService.find(negocioId,query);
+    return capitales;
+  }
+  async detalleCapital(negocioId, capitalId) {
+
+    const capitales = await capitalesService.findOne(negocioId,capitalId);
     return capitales;
   }
 }

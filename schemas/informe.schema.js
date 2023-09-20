@@ -1,10 +1,16 @@
 const joi = require('joi');
 
-const fecha_min = joi.date();
-const fecha_max = joi.date();
+const dateDesde = joi.date();
+const dateHasta = joi.date();
 
 const queryInformeSchema = joi.object({
-
+  dateDesde: dateDesde.required(),
+  dateHasta: dateHasta.required()
 });
 
-module.exports = { queryInformeSchema };
+
+const getDetalleCapitalSchema = joi.object({
+  negocioId: dateDesde.required(),
+  capitalId: dateHasta.required()
+});
+module.exports = { queryInformeSchema,getDetalleCapitalSchema };
