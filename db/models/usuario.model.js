@@ -1,5 +1,5 @@
 const {Model,DataTypes, Sequelize} = require('sequelize');
-const {NEGOCIO_TABLE}=require('../models/negocio.model');
+const {CLINICA_TABLE}=require('../models/clinica.model');
 const {PERFIL_TABLE}=require('../models/perfil.model');
 const {ROLE_TABLE}=require('../models/role.model');
 
@@ -13,12 +13,12 @@ const usuarioSchema  = {
     primaryKey: true,
     type: DataTypes.INTEGER
   },
-  negocioId:{
-    field: 'negocio_id',
+  clinicaId:{
+    field: 'clinica_id',
     allowNull: false,
     type: DataTypes.INTEGER,
     references: {
-      model: NEGOCIO_TABLE,
+      model: CLINICA_TABLE,
       key: 'id'
     },
     onUpdate: 'CASCADE',
@@ -34,7 +34,6 @@ const usuarioSchema  = {
     field: 'perfil_id',
     allowNull: false,
     type: DataTypes.INTEGER,
-    unique: true,
     references: {
       model: PERFIL_TABLE,
       key: 'id'
@@ -59,19 +58,17 @@ class Usuario extends Model{
   // crear metodos estaticos
   static associate(models){
 
-    this.belongsTo(models.Negocio, {as: 'negocio'});
-    this.hasMany(models.Compra, {as: 'compras', foreignKey: 'usuarioId'});
-    this.hasMany(models.Venta, {as: 'ventas', foreignKey: 'usuarioId'});
+    this.belongsTo(models.Clinica, {as: 'clinica'});
 
 
     this.belongsTo(models.Perfil, {as: 'perfil'});
+
     this.belongsToMany(models.Role, {
       as: 'roles',
       through: models.RoleUsuario,
       foreignKey: 'usuarioId',
-      otherKey: 'roleId'
+      otherKey: 'roleId',
     });
-
 
   }
   // definir otrto estatico para la conexin

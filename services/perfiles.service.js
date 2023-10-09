@@ -4,7 +4,7 @@ const boom = require('@hapi/boom');
 class PerfilesService {
 
   async create(data){
-
+    console.log(data);
     const dat = await models.Perfil.create(data);
     if(!dat){throw boom.notFound('Perfil not found'); }
     return dat;

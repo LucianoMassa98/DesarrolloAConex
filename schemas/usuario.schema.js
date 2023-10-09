@@ -4,7 +4,7 @@ const password=joi.string().min(8);
 const username=joi.string().min(3);
 
 const createusuarioSchema = joi.object({
-  negocioId: id.required(),
+  clinicaId: id.required(),
   perfilId: id.required(),
   username: username.required(),
   password: password.required(),
@@ -30,7 +30,7 @@ const loginusuarioSchema = joi.object({
 
 });
 const getusuarioSchema = joi.object({
-  negocioId: id.required(),
+  clinicaId: id.required(),
   usuarioId: id.required()
 });
 

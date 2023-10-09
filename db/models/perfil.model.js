@@ -17,32 +17,36 @@ const perfilSchema  = {
     allowNull: false,
     type: DataTypes.STRING,
   },
+  cedula: {
+    allowNull: false,
+    type: DataTypes.DOUBLE,
+  },
   celular: {
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.DOUBLE,
   },
   direccion: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.STRING,
   },
   email: {
     allowNull: false,
     type: DataTypes.STRING,
-    unique: true,
+    unique: false,
   },
   imagen: {
     type: DataTypes.STRING,
     allowNull: true,
+  },
+  nacimiento: {
+    type: DataTypes.DATE,
+    allowNull: false,
   }
 }
 
 class Perfil extends Model{
   // crear metodos estaticos
   static associate(models){
-
-
-
-
   }
   // definir otrto estatico para la conexin
   static config(sequelize){

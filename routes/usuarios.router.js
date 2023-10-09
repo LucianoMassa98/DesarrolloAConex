@@ -11,25 +11,27 @@ const  {
   subtractroleSchema
   } = require('../schemas/usuario.schema');
 
-  const {getnegocioSchema} = require('../schemas/negocio.schema');
+  const {getclinicaSchema} = require('../schemas/clinica.schema');
   const validatorHandler = require('../middlewares/validator.handler');
-  router.get('/:negocioId',
-validatorHandler(getnegocioSchema,'params'),
+
+  router.get('/:clinicaId',
+validatorHandler(getclinicaSchema,'params'),
 async (req,res,next)=>{
   try{
-    const {negocioId} = req.params;
-    const usuarios=await service.find(negocioId);
+    const {clinicaId} = req.params;
+    const usuarios=await service.find(clinicaId);
     res.json(usuarios);
   }catch(err){
     next(err);
   }
 });
-router.get('/:negocioId/:usuarioId',
+
+router.get('/:clinicaId/:usuarioId',
 validatorHandler(getusuarioSchema, 'params'),
 async (req,res,next)=>{
   try{
-    const{negocioId,usuarioId}=req.params;
-  const usuario = await service.findOne(negocioId,usuarioId);
+    const{clinicaId,usuarioId}=req.params;
+  const usuario = await service.findOne(clinicaId,usuarioId);
   res.json(usuario);
   }catch(err){
     next(err);
@@ -74,14 +76,14 @@ async (req, res,next) => {
   });
  }catch(err){next(err);}
 });
-router.patch('/:negocioId/:usuarioId',
+router.patch('/:clinicaId/:usuarioId',
 validatorHandler(getusuarioSchema,'params'),
 validatorHandler(updateusuarioSchema,'body'),
 async (req, res,next) => {
   try{
-    const { negocioId,usuarioId } = req.params;
+    const { clinicaId,usuarioId } = req.params;
     const body = req.body;
-    const xupdate = await service.update(negocioId,usuarioId,body);
+    const xupdate = await service.update(clinicaId,usuarioId,body);
     res.json({
       message: 'updated',
       data: xupdate
@@ -91,12 +93,12 @@ async (req, res,next) => {
     next(err);
   }
 });
-router.delete('/:negocioId/:usuarioId',
+router.delete('/:clinicaId/:usuarioId',
   validatorHandler(getusuarioSchema,'params'),
   async(req, res,next) => {
   try{
-    const { negocioId,usuarioId } = req.params;
-  const delX = await service.delete(negocioId,usuarioId);
+    const { clinicaId,usuarioId } = req.params;
+  const delX = await service.delete(clinicaId,usuarioId);
   res.json({
     message: 'deleted',
     data: delX
@@ -106,7 +108,7 @@ router.delete('/:negocioId/:usuarioId',
   }
 });
 
-router.delete('/subtract-role',
+router.delete('/sub-role',
   validatorHandler(subtractroleSchema,'body'),
   async(req, res,next) => {
   try{

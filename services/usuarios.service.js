@@ -3,13 +3,15 @@ const boom = require('@hapi/boom');
 
 class UsuariosService {
   async create(data) {
+    console.log("-----------");
+    console.log(data);
     const dat = await models.Usuario.create(data);
     if (!dat) {
       throw boom.notFound('Usuario o Contraseña not found');
     }
     const usuarioSinContraseña = {
       id: dat.id,
-      negocio: dat.negocioId,
+      clinica: dat.clinicaId,
       username: dat.username,
       createdAt: dat.createdAt
 
@@ -54,7 +56,7 @@ class UsuariosService {
     }
     const usuarioSinContraseña = {
       id: user.id,
-      negocio: user.negocioId,
+      clinica: user.clinicaId,
       username: user.username,
       perfilId: user.perfilId,
       createdAt: user.createdAt,
@@ -63,12 +65,12 @@ class UsuariosService {
     };
     return usuarioSinContraseña;
   }
-  async find(negocioId) {
-    const negocio = await models.Negocio.findByPk(negocioId, {
+  async find(clinicaId) {
+    const clinica = await models.Clinica.findByPk(clinicaId, {
       include: [{
         model: models.Usuario,
-        as: 'usuarios', // Asegúrate de que esta coincida con la definición de tu asociación en el modelo Negocio
-        attributes: ['id','negocioId','username'],
+        as: 'usuarios', // Asegúrate de que esta coincida con la definición de tu asociación en el modelo clinica
+        attributes: ['id','clinicaId','username'],
         include: [
           {
             model: models.Perfil, // Agrega el modelo Perfil
@@ -77,36 +79,36 @@ class UsuariosService {
         ],
       }],
     });
-    if (!negocio) {
-      throw boom.notFound('Negocio not found');
+    if (!clinica) {
+      throw boom.notFound('clinica not found');
     }
 
-    return negocio.usuarios;
+    return clinica.usuarios;
   }
-  async findOne(negocioId, usuarioId) {
+  async findOne(clinicaId, usuarioId) {
     const user = await models.Usuario.findByPk(usuarioId, {
-      attributes: ['id','negocioId','username'],
-      include: ['perfil'],
+      attributes: ['id','clinicaId','username'],
+      include: ['perfil','roles'],
     });
     if (!user) {
       throw boom.notFound('User not found');
     }
 
-    if (user.dataValues.negocioId != negocioId) {
-      throw boom.notFound('El usuario no pertenece al negocio');
+    if (user.dataValues.clinicaId != clinicaId) {
+      throw boom.notFound('El usuario no pertenece al clinica');
     }
 
    return user;
   }
-  async update(negocioId, usuarioId, changes) {
-    const user = await this.findOne(negocioId, usuarioId);
+  async update(clinicaId, usuarioId, changes) {
+    const user = await this.findOne(clinicaId, usuarioId);
     const rta = await user.update(changes);
     if (!rta) {
       throw boom.notFound('User not found');
     }
     const usuarioSinContraseña = {
       id: rta.id,
-      negocio: rta.negocioId,
+      clinica: rta.clinicaId,
       username: rta.username,
       perfilId: rta.perfilId,
       createdAt: rta.createdAt,
@@ -115,8 +117,8 @@ class UsuariosService {
     };
     return usuarioSinContraseña;
   }
-  async delete(negocioId, usuarioId) {
-    const user = await this.findOne(negocioId, usuarioId);
+  async delete(clinicaId, usuarioId) {
+    const user = await this.findOne(clinicaId, usuarioId);
     const rta = await user.destroy();
     if (!rta) {
       throw boom.notFound('User not found');

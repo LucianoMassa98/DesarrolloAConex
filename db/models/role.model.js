@@ -1,5 +1,5 @@
 const {Model,DataTypes, Sequelize} = require('sequelize');
-const {NEGOCIO_TABLE}=require('./negocio.model');
+const {NEGOCIO_TABLE}=require('./clinica.model');
 const ROLE_TABLE = 'roles';
 const roleSchema  = {
   id: {

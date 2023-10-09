@@ -28,6 +28,7 @@ validatorHandler(createperfilSchema,'body'),
 async (req, res,next) => {
   try{
     const body = req.body;
+    console.log(body);
   const Newperfil = await service.create(body);
   res.json({
     message: 'created',
@@ -35,6 +36,11 @@ async (req, res,next) => {
   });
   }catch(err){next(err);}
 });
+
+
+
+
+
 router.patch('/:perfilId',
 validatorHandler(getperfilSchema,'params'),
 validatorHandler(updateperfilSchema,'body'),
