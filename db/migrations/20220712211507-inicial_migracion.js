@@ -10,6 +10,7 @@ const {TURNO_TABLE,turnoSchema}=require('../models/turno.model');
 const {PACIENTE_TABLE,pacienteSchema}=require('../models/paciente.model');
 const {PROFESIONAL_TABLE,profesionalSchema}=require('../models/profesional.model');
 const {ESPECIALIDAD_TABLE,especialidadSchema}=require('../models/especialidad.model');
+const {FERIADO_TABLE,feriadoSchema}=require('../models/feriado.model');
 
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -24,11 +25,13 @@ module.exports = {
     await queryInterface.createTable(HORARIO_TABLE,horarioSchema);
     await queryInterface.createTable(TURNO_TABLE,turnoSchema);
     await queryInterface.createTable(AUSENCIA_TABLE,ausenciaSchema);
+    await queryInterface.createTable(FERIADO_TABLE,feriadoSchema);
+
   },
 
   async down (queryInterface, Sequelize) {
 
-
+    await queryInterface.dropTable(FERIADO_TABLE);
    await queryInterface.dropTable(AUSENCIA_TABLE);
     await queryInterface.dropTable(TURNO_TABLE);
     await queryInterface.dropTable(HORARIO_TABLE);

@@ -7,6 +7,9 @@ const observacion = joi.string();
 const presentismo = joi.string();
 const date = joi.date();
 
+const libres= joi.boolean().truthy();
+const fechaDesde=joi.date();
+const fechaHasta= joi.date();
 
 const createturnoSchema = joi.object({
   profesionalId: profesionalId.required(),
@@ -26,10 +29,17 @@ const getturnoSchema = joi.object({
   turnoId: profesionalId.required()
 });
 
+const queryTurnoSchema = joi.object({
+  profesionalId,
+  libres,
+  fechaDesde,
+  fechaHasta
+});
 module.exports = {
   createturnoSchema,
   updateturnoSchema,
-  getturnoSchema
+  getturnoSchema,
+  queryTurnoSchema
   };
 
 

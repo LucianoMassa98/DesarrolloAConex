@@ -5,7 +5,8 @@ const service = new TurnosService();
 const  {
   createturnoSchema,
   updateturnoSchema,
-  getturnoSchema
+  getturnoSchema,
+  queryTurnoSchema
   } = require('../schemas/turno.schema');
 
   const {getclinicaSchema} = require('../schemas/clinica.schema');
@@ -56,7 +57,16 @@ router.delete('/:profesionalId/:turnoId',
     next(err);
   }
 });
-
+router.get('/:clinicaId',
+validatorHandler(getclinicaSchema,'params'),
+validatorHandler(queryTurnoSchema,'query'),
+async (req, res,next) => {
+  try{
+    const {clinicaId} = req.params;
+    const Newturno = await service.find(clinicaId,req.query);
+    res.json(Newturno);
+  }catch(err){next(err);}
+});
 
 
 module.exports=router;

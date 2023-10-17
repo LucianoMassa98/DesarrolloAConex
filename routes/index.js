@@ -10,6 +10,7 @@ const horariosRouter = require('./horarios.router');
 const especialidadesRouter = require('./especialidades.router');
 const ausenciasRouter = require('./ausencias.router');
 const turnosRouter = require('./turnos.router');
+const feriadosRouter = require('./feriados.router');
 
 function routerApi(app) {
   const router = express.Router();
@@ -24,6 +25,6 @@ function routerApi(app) {
   router.use('/especialidades', especialidadesRouter);
   router.use('/ausencias', ausenciasRouter);
   router.use('/turnos', turnosRouter);
-
+  router.use('/feriados', feriadosRouter);
 }
 module.exports = routerApi;

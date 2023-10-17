@@ -1,6 +1,7 @@
 const {Model,DataTypes, Sequelize} = require('sequelize');
 const {PACIENTE_TABLE}=require('./paciente.model');
 const {PROFESIONAL_TABLE}=require('./profesional.model');
+const {CLINICA_TABLE}=require('./clinica.model');
 
 const TURNO_TABLE = 'turnos';
 const turnoSchema  = {
@@ -9,6 +10,17 @@ const turnoSchema  = {
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER
+  },
+  clinicaId: {
+    field: 'clinica_id',
+    allowNull: true,
+    type: DataTypes.INTEGER,
+    references: {
+      model: CLINICA_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   },
   profesionalId: {
     field: 'profesional_id',

@@ -10,6 +10,7 @@ const {Paciente, pacienteSchema}= require('./paciente.model');
 const {Horario, horarioSchema}= require('./horario.model');
 const {Ausencia, ausenciaSchema}= require('./ausencia.model');
 const {Turno, turnoSchema}= require('./turno.model');
+const {Feriado, feriadoSchema}= require('./feriado.model');
 
 function setupModels(sequelize){
 
@@ -24,6 +25,7 @@ Paciente.init(pacienteSchema,Paciente.config(sequelize));
 Horario.init(horarioSchema,Horario.config(sequelize));
 Ausencia.init(ausenciaSchema,Ausencia.config(sequelize));
 Turno.init(turnoSchema,Turno.config(sequelize));
+Feriado.init(feriadoSchema,Feriado.config(sequelize));
 
 Clinica.associate(sequelize.models);
 Perfil.associate(sequelize.models);
@@ -36,5 +38,6 @@ Paciente.associate(sequelize.models);
 Horario.associate(sequelize.models);
 Ausencia.associate(sequelize.models);
 Turno.associate(sequelize.models);
+Feriado.associate(sequelize.models);
 }
 module.exports = setupModels;
