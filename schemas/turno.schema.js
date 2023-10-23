@@ -34,7 +34,10 @@ const queryTurnoSchema = joi.object({
   profesionalId,
   libres,
   fechaDesde,
-  fechaHasta
+  fechaHasta: joi.when('fechaDesde', {
+    is: joi.exist(),
+    then: joi.date().min(joi.ref('fechaDesde')).required(),
+  })
 });
 module.exports = {
   createturnoSchema,
