@@ -9,13 +9,13 @@ class PacientesService {
   }
   async find(clinicaId) {
     // falta devolver perfiles
-    const rta = await models.Paciente.findAll({where:{clinicaId: clinicaId}});
+    const rta = await models.Paciente.findAll({where:{clinicaId: clinicaId},include:['perfil']});
     if(!rta){throw boom.notFound("Pacientes not found");}
     return rta;
   }
   async findOne(clinicaId,pacienteId) {
     // falta devolver perfiles
-    const rta = await models.Paciente.findByPk(pacienteId);
+    const rta = await models.Paciente.findByPk(pacienteId,{include:['perfil']});
     if(!rta){throw boom.notFound("Paciente not found");}
     if(rta.clinicaId != clinicaId){throw boom.notFound("Paciente not found");}
     return rta;

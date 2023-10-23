@@ -45,6 +45,7 @@ class Clinica extends Model{
     this.hasMany(models.Especialidad, {as: 'especialidades', foreignKey: 'clinicaId',onDelete: 'CASCADE'});
     this.hasMany(models.Profesional, {as: 'profesionales', foreignKey: 'clinicaId',onDelete: 'CASCADE'});
     this.hasMany(models.Paciente, {as: 'pacientes', foreignKey: 'clinicaId',onDelete: 'CASCADE'});
+    this.belongsTo(models.Perfil, {as: 'perfil'});
 
 
   }

@@ -1,6 +1,7 @@
 const {Model,DataTypes, Sequelize} = require('sequelize');
 const {ESPECIALIDAD_TABLE}=require('./especialidad.model');
 const {PROFESIONAL_TABLE}=require('./profesional.model');
+const {CLINICA_TABLE}=require('./clinica.model');
 
 const HORARIO_TABLE = 'horarios';
 const horarioSchema  = {
@@ -9,6 +10,17 @@ const horarioSchema  = {
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER
+  },
+  clinicaId: {
+    field: 'clinica_id',
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    references: {
+      model: CLINICA_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   },
   profesionalId: {
     field: 'profesional_id',

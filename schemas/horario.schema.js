@@ -12,6 +12,7 @@ const intervalo = joi.number().integer();
 
 
 const createhorarioSchema = joi.object({
+  clinicaId: profesionalId.required(),
   profesionalId: profesionalId.required(),
   especialidadId: especialidadId.required(),
   nroDia: nroDia.required(),

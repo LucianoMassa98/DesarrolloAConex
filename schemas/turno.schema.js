@@ -12,6 +12,7 @@ const fechaDesde=joi.date();
 const fechaHasta= joi.date();
 
 const createturnoSchema = joi.object({
+  clinicaId: profesionalId.required(),
   profesionalId: profesionalId.required(),
   pacienteId: pacienteId.required(),
   observacion: observacion.required(),

@@ -8,12 +8,12 @@ class ClinicasService {
     return rta;
   }
   async find() {
-    const rta = await models.Clinica.findAll();
+    const rta = await models.Clinica.findAll({include:['perfil']});
     if(!rta){throw boom.notFound('Clinica not found');}
     return rta;
   }
   async findOne(clinicaId) {
-    const rta = await models.Clinica.findByPk(clinicaId);
+    const rta = await models.Clinica.findByPk(clinicaId,{include:['perfil']});
 
     if(!rta){ throw boom.notFound('Clinica not found'); }
     return rta;

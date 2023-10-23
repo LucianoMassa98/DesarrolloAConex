@@ -13,7 +13,7 @@ const turnoSchema  = {
   },
   clinicaId: {
     field: 'clinica_id',
-    allowNull: true,
+    allowNull: false,
     type: DataTypes.INTEGER,
     references: {
       model: CLINICA_TABLE,
@@ -45,11 +45,11 @@ const turnoSchema  = {
     onDelete: 'SET NULL'
   },
   presentismo:{
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.STRING,
   },
   observacion:{
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.STRING,
   },
   date: {

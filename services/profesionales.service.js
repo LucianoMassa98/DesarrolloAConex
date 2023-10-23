@@ -9,9 +9,14 @@ class ProfesionalesService {
   }
   async find(clinicaId) {
     // falta devolver perfil
-    const rta = await models.Clinica.findByPk(clinicaId,{include:['profesionales']});
+    //const rta = await models.Clinica.findByPk(clinicaId,{include:['profesionales']});
+
+    const rta = await models.Profesional.findAll({
+      where:{clinicaId:clinicaId},
+      include:['perfil']});
+
     if(!rta){throw boom.notFound('Clinica not found');}
-    return rta.profesionales;
+    return rta;
   }
   async findOne(clinicaId, profesionalId,query) {
 

@@ -8,7 +8,6 @@ const {longError,errorHandler,BoomErrorHandler,ormErrorHandler}= require('./midd
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-
 const whitelist = ['http://localhost:3000','http://myapp.com'];
 const options = {
   origin: (origin,callback)=>{
