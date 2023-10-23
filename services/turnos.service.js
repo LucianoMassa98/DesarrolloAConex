@@ -71,8 +71,8 @@ class TurnosService {
     const { fechaDesde, fechaHasta } = query;
     if (fechaDesde && fechaHasta) {
       options.where.date = {
-        [Op.gte]: dateDesde,
-        [Op.lte]: dateHasta,
+        [Op.gte]: fechaDesde,
+        [Op.lte]: fechaHasta,
       };
     }
 
