@@ -70,9 +70,16 @@ class TurnosService {
 
     const { fechaDesde, fechaHasta } = query;
     if (fechaDesde && fechaHasta) {
+
+      let dateDesde = new Date(fechaDesde);
+      let dateHasta = new Date(fechaHasta);
+      dateHasta.setHours(parseInt(23, 10)); // parseInt convierte la cadena a un número
+      dateHasta.setMinutes(parseInt(59, 10));
+
+      console.log(dateDesde + " ------- "+dateHasta);
       options.where.date = {
-        [Op.gte]: fechaDesde,
-        [Op.lte]: fechaHasta,
+        [Op.gte]: dateDesde,
+        [Op.lte]: dateHasta,
       };
     }
 
