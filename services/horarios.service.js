@@ -7,6 +7,18 @@ class HorariosService {
 
     //console.log(data);
     const fecha = new Date(data.vigenciaDesde);
+    const horario = await models.Horario.findOne({where:{
+      clinicaId: data.profesionalId,
+      profesionalId: data.profesionalId,
+      especialidadId: data.especialidadId,
+      nroDia: data.nroDia,
+      vigenciaDesde:data.vigenciaDesde,
+      vigenciaHasta: data.vigenciaHasta,
+      horaDesde: data.horaDesde,
+      horaHasta: data.horaHasta,
+      intervalo: data.intervalo
+    }});
+    if(horario){throw boom.notFound("Ya existe un horario similar para este profesional");}
     if(fecha.getDay()!=data.nroDia){throw boom.notFound("La vigencia debe empezar desde el dia seleccionado");}
     const rta = await models.Horario.create(data);
     if(!rta){throw boom.notFound("No se pudo crear la Horario");}

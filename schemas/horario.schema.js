@@ -16,8 +16,8 @@ const createhorarioSchema = joi.object({
   profesionalId: profesionalId.required(),
   especialidadId: especialidadId.required(),
   nroDia: nroDia.required(),
-  vigenciaDesde,
-  vigenciaHasta,
+  vigenciaDesde: vigenciaDesde.required(),
+  vigenciaHasta: vigenciaDesde.required(),
   horaDesde: horaDesde.required(),
   horaHasta: horaHasta.required(),
   intervalo: intervalo.required()
