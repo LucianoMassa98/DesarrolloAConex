@@ -8,6 +8,7 @@ const presentismo = joi.string();
 const date = joi.date();
 
 const libres= joi.boolean().truthy();
+const habilitado= joi.boolean();
 const fechaDesde=joi.date();
 const fechaHasta= joi.date();
 
@@ -24,6 +25,7 @@ const updateturnoSchema = joi.object({
   pacienteId,
   observacion,
   presentismo,
+  habilitado
 });
 const getturnoSchema = joi.object({
   profesionalId: profesionalId.required(),

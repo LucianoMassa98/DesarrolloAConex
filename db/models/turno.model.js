@@ -52,6 +52,11 @@ const turnoSchema  = {
     allowNull: true,
     type: DataTypes.STRING,
   },
+  habilitado:{
+    allowNull: true,
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
+  },
   date: {
     allowNull: false,
     type: DataTypes.DATE
