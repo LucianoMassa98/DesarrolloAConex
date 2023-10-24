@@ -6,7 +6,7 @@ const pacienteId = joi.number().integer();
 const observacion = joi.string();
 const presentismo = joi.string();
 const date = joi.date();
-
+const especialidadId = joi.number().integer();
 const libres= joi.boolean().truthy();
 const habilitado= joi.boolean();
 const fechaDesde=joi.date();
@@ -34,6 +34,7 @@ const getturnoSchema = joi.object({
 
 const queryTurnoSchema = joi.object({
   profesionalId,
+  especialidadId,
   libres,
   fechaDesde,
   fechaHasta: joi.when('fechaDesde', {
