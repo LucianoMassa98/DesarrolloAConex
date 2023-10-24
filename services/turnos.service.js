@@ -19,7 +19,8 @@ class TurnosService {
       fecha <= new Date(horario.vigenciaHasta);
       fecha.setDate(fecha.getDate() + 7)
     ) {
-
+        console.log(fecha);
+        console.log("---------------");
         const [horas, minutos] = horario.horaDesde.split(":");
         fecha.setHours(parseInt(horas, 10));
         fecha.setMinutes(parseInt(minutos, 10));
@@ -31,7 +32,7 @@ class TurnosService {
 
 
         for(let hora = fecha; hora<=fechaHorarioHasta; hora.setMinutes(hora.getMinutes()+horario.intervalo)){
-
+          console.log(hora);
           const rta = await this.create({
             clinicaId: horario.clinicaId,
             profesionalId: horario.profesionalId,

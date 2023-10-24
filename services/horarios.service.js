@@ -5,7 +5,7 @@ const service = new TurnosService();
 class HorariosService {
   async create(data) {
 
-    console.log(data);
+    //console.log(data);
     const fecha = new Date(data.vigenciaDesde);
     if(fecha.getDay()!=data.nroDia){throw boom.notFound("La vigencia debe empezar desde el dia seleccionado");}
     const rta = await models.Horario.create(data);
