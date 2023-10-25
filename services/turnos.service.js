@@ -104,6 +104,8 @@ class TurnosService {
       throw boom.notFound('Turno not found');
     }
 
+    rta.sort((a, b) => a.id - b.id);
+
     return rta;
   }
   async findOne(profesionalId, turnoId) {
