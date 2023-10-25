@@ -2,6 +2,7 @@ const {Model,DataTypes, Sequelize} = require('sequelize');
 const {PACIENTE_TABLE}=require('./paciente.model');
 const {PROFESIONAL_TABLE}=require('./profesional.model');
 const {CLINICA_TABLE}=require('./clinica.model');
+const { ESPECIALIDAD_TABLE } = require('./especialidad.model');
 
 const TURNO_TABLE = 'turnos';
 const turnoSchema  = {
@@ -44,6 +45,17 @@ const turnoSchema  = {
     onUpdate: 'CASCADE',
     onDelete: 'SET NULL'
   },
+  especialidadId: {
+    field: 'especialidad_id',
+    allowNull: true,
+    type: DataTypes.INTEGER,
+    references: {
+      model: ESPECIALIDAD_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
+  },
   presentismo:{
     allowNull: true,
     type: DataTypes.STRING,
@@ -66,6 +78,8 @@ const turnoSchema  = {
 class Turno extends Model{
   // crear metodos estaticos
   static associate(models){
+    this.belongsTo(models.Paciente, {as: 'paciente'});
+
   }
   // definir otrto estatico para la conexin
   static config(sequelize){

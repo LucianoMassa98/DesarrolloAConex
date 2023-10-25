@@ -36,6 +36,7 @@ class TurnosService {
           const rta = await this.create({
             clinicaId: horario.clinicaId,
             profesionalId: horario.profesionalId,
+            especialidadId: horario.especialidadId,
             date: hora,
           });
 
@@ -53,16 +54,28 @@ class TurnosService {
       where: {
         clinicaId: clinicaId,
       },
+      include:[{
+        model: models.Paciente, // Modelo Cliente
+        as: 'paciente', // Alias 'cliente'
+        include: ['perfil'], // Incluir el perfil del cliente
+      }]
     };
 
 
-    const { espcialidadId } = query;
-    if (espcialidadId) {
-      options.where.espcialidadId = espcialidadId;
+    const { especialidadId } = query;
+    if (especialidadId) {
+      options.where.especialidadId = especialidadId;
     }
     const { libres } = query;
-    if (libres) {
+    console.log(query);
+    console.log(libres);
+    if (libres=='true') {
       options.where.pacienteId = null;
+    }else if(libres=='false'){
+      console.log("entro al false");
+      options.where.pacienteId={
+        [Op.ne]: null
+      }
     }
 
     const { profesionalId } = query;
@@ -84,14 +97,13 @@ class TurnosService {
         [Op.lte]: dateHasta,
       };
     }
-
+    console.log("-----------");
+    console.log(options);
     const rta = await models.Turno.findAll(options);
     if (!rta) {
       throw boom.notFound('Turno not found');
     }
-    if (rta.profesionalId != profesionalId) {
-      throw boom.notFound('Turno not found');
-    }
+
     return rta;
   }
   async findOne(profesionalId, turnoId) {
