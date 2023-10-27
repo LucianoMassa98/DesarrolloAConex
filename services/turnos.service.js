@@ -102,13 +102,7 @@ class TurnosService {
       throw boom.notFound('Turno not found');
     }
     function compararFechasYHoras(a, b) {
-      if (a.fechaHora < b.fechaHora) {
-        return -1;
-      } else if (a.fechaHora > b.fechaHora) {
-        return 1;
-      } else {
-        return 0;
-      }
+     return a.date - b.date;
     }
     rta.sort(compararFechasYHoras);
 
