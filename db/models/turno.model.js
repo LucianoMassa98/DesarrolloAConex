@@ -64,6 +64,10 @@ const turnoSchema  = {
     allowNull: true,
     type: DataTypes.STRING,
   },
+  obraSocial:{
+    allowNull: true,
+    type: DataTypes.STRING,
+  },
   habilitado:{
     allowNull: true,
     type: DataTypes.BOOLEAN,

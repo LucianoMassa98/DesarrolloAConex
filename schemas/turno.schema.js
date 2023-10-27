@@ -4,6 +4,7 @@ const joi = require('joi');
 const profesionalId = joi.number().integer();
 const pacienteId = joi.number().integer();
 const observacion = joi.string();
+const obraSocial = joi.string();
 const presentismo = joi.string();
 const date = joi.date();
 const especialidadId = joi.number().integer();
@@ -17,6 +18,7 @@ const createturnoSchema = joi.object({
   profesionalId: profesionalId.required(),
   pacienteId: pacienteId.required(),
   observacion: observacion.required(),
+  obraSocial: obraSocial.required(),
   presentismo: presentismo.required(),
   date: date.required()
 });
@@ -25,6 +27,7 @@ const updateturnoSchema = joi.object({
   pacienteId,
   observacion,
   presentismo,
+  obraSocial,
   habilitado
 });
 const getturnoSchema = joi.object({

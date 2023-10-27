@@ -72,7 +72,6 @@ class TurnosService {
     if (libres=='true') {
       options.where.pacienteId = null;
     }else if(libres=='false'){
-      console.log("entro al false");
       options.where.pacienteId={
         [Op.ne]: null
       }
@@ -97,17 +96,25 @@ class TurnosService {
         [Op.lte]: dateHasta,
       };
     }
-    console.log("-----------");
-    console.log(options);
+
     const rta = await models.Turno.findAll(options);
     if (!rta) {
       throw boom.notFound('Turno not found');
     }
-
-    rta.sort((a, b) => a.id - b.id);
+    function compararFechasYHoras(a, b) {
+      if (a.fechaHora < b.fechaHora) {
+        return -1;
+      } else if (a.fechaHora > b.fechaHora) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+    rta.sort(compararFechasYHoras);
 
     return rta;
   }
+
   async findOne(profesionalId, turnoId) {
     const rta = await models.Turno.findByPk(turnoId);
     if (!rta) {
