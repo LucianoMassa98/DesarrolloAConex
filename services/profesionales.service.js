@@ -10,10 +10,11 @@ class ProfesionalesService {
   async find(clinicaId) {
     // falta devolver perfil
     //const rta = await models.Clinica.findByPk(clinicaId,{include:['profesionales']});
-
-    const rta = await models.Profesional.findAll({
+    const options = {
       where:{clinicaId:clinicaId},
-      include:['perfil']});
+      include:['perfil','horarios','ausencias']};
+
+    const rta = await models.Profesional.findAll(options);
 
     if(!rta){throw boom.notFound('Clinica not found');}
     return rta;
