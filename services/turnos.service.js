@@ -12,15 +12,14 @@ class TurnosService {
   }
   async generarTurnos(horario) {
 
-    console.log("llegue aqui en produccion");
+
 
     for (
       let fecha = new Date(horario.vigenciaDesde);
       fecha <= new Date(horario.vigenciaHasta);
       fecha.setDate(fecha.getDate() + 7)
     ) {
-        console.log(fecha);
-        console.log("---------------");
+
         const [horas, minutos] = horario.horaDesde.split(":");
         fecha.setHours(parseInt(horas, 10));
         fecha.setMinutes(parseInt(minutos, 10));
@@ -115,7 +114,6 @@ class TurnosService {
       throw boom.notFound('Turno not found');
     }
 
-    console.log(rta.profesionalId +"----"+ profesionalId);
     if (rta.profesionalId != profesionalId) {
       throw boom.notFound('Turno and Profesional unrelated');
     }

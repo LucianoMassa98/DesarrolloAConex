@@ -2,13 +2,16 @@ const { models } = require('../libs/sequelize');
 const boom = require('@hapi/boom');
 const TurnosService = require('../services/turnos.service');
 const service = new TurnosService();
+
+const EspecialidadService = require('../services/turnos.service');
+const serviceEsp = new EspecialidadService();
 class HorariosService {
   async create(data) {
 
     //console.log(data);
     const fecha = new Date(data.vigenciaDesde);
     const horario = await models.Horario.findOne({where:{
-      clinicaId: data.profesionalId,
+      clinicaId: data.clinicaId,
       profesionalId: data.profesionalId,
       especialidadId: data.especialidadId,
       nroDia: data.nroDia,
@@ -18,6 +21,9 @@ class HorariosService {
       horaHasta: data.horaHasta,
       intervalo: data.intervalo
     }});
+
+    const esp = await serviceEsp.findOne(data.clinicaId,data.especialidadId);
+    if(!esp){throw boom.notFound("Especialidad no correspondiente a la clinica");}
     if(horario){throw boom.notFound("Ya existe un horario similar para este profesional");}
     if(fecha.getDay()!=data.nroDia){throw boom.notFound("La vigencia debe empezar desde el dia seleccionado");}
     const rta = await models.Horario.create(data);
