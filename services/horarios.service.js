@@ -43,6 +43,14 @@ class HorariosService {
   }
   async delete(profesionalId, horarioId) {
     const Horario = await this.findOne(profesionalId,horarioId);
+
+    const turnos = await service.find(Horario.clinicaId,{profesionalId: Horario.profesionalId, fechaDesde: Horario.fechaDesde, fechaHasta: Horario.fechaHasta })
+
+    turnos.forEach(async element => {
+     const rta= await element.destroy();
+      if(!rta){throw boom.notFound("No se pudo eliminar turnos");}
+    });
+
     const rta = await Horario.destroy();
     if(!rta){throw boom.notFound("Horario not found");}
     return Horario;

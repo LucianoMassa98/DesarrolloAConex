@@ -57,6 +57,20 @@ router.delete('/:profesionalId/:turnoId',
     next(err);
   }
 });
+router.patch('/anular/:profesionalId/:turnoId',
+  validatorHandler(getturnoSchema,'params'),
+  async(req, res,next) => {
+  try{
+    const { profesionalId,turnoId } = req.params;
+  const delX = await service.anular(profesionalId,turnoId);
+  res.json({
+    message: 'anulado',
+    data: delX
+  });
+  }catch(err){
+    next(err);
+  }
+});
 router.get('/:clinicaId',
 validatorHandler(getclinicaSchema,'params'),
 validatorHandler(queryTurnoSchema,'query'),

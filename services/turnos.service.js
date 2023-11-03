@@ -114,8 +114,10 @@ class TurnosService {
     if (!rta) {
       throw boom.notFound('Turno not found');
     }
+
+    console.log(rta.profesionalId +"----"+ profesionalId);
     if (rta.profesionalId != profesionalId) {
-      throw boom.notFound('Turno not found');
+      throw boom.notFound('Turno and Profesional unrelated');
     }
     return rta;
   }
@@ -123,13 +125,26 @@ class TurnosService {
     const Turno = await this.findOne(profesionalId, turnoId);
     const rta = await Turno.update(change);
     if (!rta) {
-      throw boom.notFound('Turno not found');
+      throw boom.notFound('Turno not updated');
     }
     return rta;
   }
   async delete(profesionalId, turnoId) {
     const Turno = await this.findOne(profesionalId, turnoId);
     const rta = await Turno.destroy();
+    if (!rta) {
+      throw boom.notFound('Turno not found');
+    }
+    return Turno;
+  }
+  async anular(profesionalId, turnoId) {
+    const Turno = await this.findOne(profesionalId, turnoId);
+    const rta = await Turno.update({
+      pacienteId: null,
+      observacion:"",
+      presentismo:"",
+      obraSocial:"",
+      habilitado: true});
     if (!rta) {
       throw boom.notFound('Turno not found');
     }

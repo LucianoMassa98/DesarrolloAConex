@@ -3,6 +3,8 @@ const boom = require('@hapi/boom');
 
 class ProfesionalesService {
   async create(data) {
+    const profesional = await models.Profesional.findOne({where:{clinicaId: data.clinicaId, perfilId: data.perfilId}});
+    if(profesional){throw boom.notFound("Ya existe el profesional en la clinica");}
     const dat = await models.Profesional.create(data);
     if(!dat){throw boom.notFound('Pofesional not found');}
     return dat;
