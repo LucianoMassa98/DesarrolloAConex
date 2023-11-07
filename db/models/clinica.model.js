@@ -21,6 +21,11 @@ const clinicaSchema  = {
     onDelete: 'SET NULL'
 
   },
+  username: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    unique: true
+  },
   condicionFiscal: {
     allowNull: false,
     type: DataTypes.STRING,

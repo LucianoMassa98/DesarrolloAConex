@@ -68,8 +68,8 @@ router.post('/login',
 validatorHandler(loginusuarioSchema,'body'),
 async (req, res,next) => {
  try{
-  const {username,password} = req.body;
-  const user = await service.login(username, password);
+  const {usernameclinica,username,password} = req.body;
+  const user = await service.login(usernameclinica,username, password);
   res.json({
     message: 'login',
     data: user

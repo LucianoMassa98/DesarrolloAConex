@@ -1,5 +1,7 @@
 const { models } = require('../libs/sequelize');
 const boom = require('@hapi/boom');
+const ClinicaService = require('../services/clinicas.service');
+const service = new ClinicaService();
 
 class UsuariosService {
   async create(data) {
@@ -43,7 +45,7 @@ class UsuariosService {
     }
     return rta;
   }
-  async login(username, password) {
+  async login(usernameclinica,username, password) {
     const user = await models.Usuario.findOne({
       where: { username: username },
       include: ['roles', 'perfil'],
@@ -54,6 +56,9 @@ class UsuariosService {
     if (user.dataValues.password != password) {
       throw boom.notFound('Usuario o Contraseña not found');
     }
+    const clinica = await service.findOne(user.clinicaId);
+
+    if(clinica.username != usernameclinica){ throw boom.notFound("Usuario o Contraseña not found");}
     const usuarioSinContraseña = {
       id: user.id,
       clinica: user.clinicaId,

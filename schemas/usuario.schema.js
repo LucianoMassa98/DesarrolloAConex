@@ -25,6 +25,7 @@ const updateusuarioSchema = joi.object({
   password
 });
 const loginusuarioSchema = joi.object({
+  usernameclinica: username.required(),
   username: username.required(),
   password: password.required()
 
