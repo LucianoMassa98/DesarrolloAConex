@@ -38,8 +38,7 @@ async (req, res,next) => {
       data: xupdate
     });
 
-    /*console.log("Stranding page");
-    BaseAudioContext.arguments("Estrime code ");*/
+    /* BaseAudioContext.arguments("Base ");*/
   }
   catch(err){
     next(err);

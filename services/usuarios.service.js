@@ -61,7 +61,7 @@ class UsuariosService {
     if(clinica.username != usernameclinica){ throw boom.notFound("Usuario o Contraseña not found");}
     const usuarioSinContraseña = {
       id: user.id,
-      clinica: user.clinicaId,
+      clinica: clinica,
       username: user.username,
       perfilId: user.perfilId,
       createdAt: user.createdAt,
