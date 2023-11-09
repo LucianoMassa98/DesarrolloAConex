@@ -5,7 +5,8 @@ const service = new PerfilesService();
 const  {
   createperfilSchema,
   updateperfilSchema,
-  getperfilSchema
+  getperfilSchema,
+  queryperfilSchema
   } = require('../schemas/perfil.schema');
 
 
@@ -23,6 +24,18 @@ async (req,res,next)=>{
     next(err);
   }
 });
+router.get('/',
+validatorHandler(queryperfilSchema, 'query'),
+async (req,res,next)=>{
+  try{
+  const perfil = await service.findOneQuery(req.query);
+  res.json(perfil);
+  }catch(err){
+    next(err);
+  }
+});
+
+
 router.post('/',
 validatorHandler(createperfilSchema,'body'),
 async (req, res,next) => {

@@ -17,6 +17,14 @@ class PerfilesService {
     if(!perfil){ throw boom.notFound('perfil not found'); }
     return perfil;
   }
+  async findOneQuery(query){
+
+    const {cedula,celular,email} = query;
+    const perfil = await models.Perfil.findOne({where:{cedula: cedula, celular: celular, email:email}});
+
+    if(!perfil){ throw boom.notFound('perfil not found'); }
+    return perfil;
+  }
   async update(perfilId,changes){
     const perfil = await this.findOne(perfilId);
     const rta = await perfil.update(changes);
