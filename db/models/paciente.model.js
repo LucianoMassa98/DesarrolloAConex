@@ -36,6 +36,10 @@ const pacienteSchema  = {
     onDelete: 'SET NULL'
 
   },
+  CondIVA: {
+    allowNull: false,
+    type: DataTypes.STRING,
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,

@@ -3,10 +3,11 @@ const id = joi.number().integer();
 const ausencias = joi.boolean().truthy();
 const horarios = joi.boolean().truthy();
 const turnos = joi.boolean().truthy();
-
+const matricula = joi.string();
 const createprofesionalSchema = joi.object({
   clinicaId: id.required(),
-  perfilId: id.required()
+  perfilId: id.required(),
+  matricula: matricula.required()
 
 });
 const getprofesionalSchema = joi.object({
@@ -17,7 +18,8 @@ const getprofesionalSchema = joi.object({
 const queryprofesionalSchema = joi.object({
   ausencias,
   horarios,
-  turnos
+  turnos,
+  matricula
 });
 
 module.exports = {
