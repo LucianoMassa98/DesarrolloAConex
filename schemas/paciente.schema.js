@@ -4,7 +4,7 @@ const condIva = joi.string();
 const createpacienteSchema = joi.object({
   clinicaId: id.required(),
   perfilId: id.required(),
-  condIva: condIva.required()
+  CondIVA: condIva.required()
 
 });
 const getpacienteSchema = joi.object({
