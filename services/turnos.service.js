@@ -20,7 +20,7 @@ class TurnosService {
       for (
         let fecha = new Date(horario.vigenciaDesde);
         fecha <= new Date(horario.vigenciaHasta);
-        fecha.setDate(fecha.getDate() + 7)
+        fecha = new Date(fecha.setDate(fecha.getDate() + 7))
       ) {
 
           const [horas, minutos] = horario.horaDesde.split(":");
