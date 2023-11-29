@@ -32,15 +32,16 @@ class TurnosService {
           fechaHorarioHasta.setHours(parseInt(horas2, 10));
           fechaHorarioHasta.setMinutes(parseInt(minutos2, 10));
 
-
+          console.log(fechaHorarioHasta);
+          console.log(fecha);
           for(let hora = fecha; hora<=fechaHorarioHasta; hora.setMinutes(hora.getMinutes()+horario.intervalo)){
-            console.log(hora);
-            const rta = await this.create({
+           // console.log(hora);
+           /* const rta = await this.create({
               clinicaId: horario.clinicaId,
               profesionalId: horario.profesionalId,
               especialidadId: horario.especialidadId,
               date: hora,
-            });
+            });*/
 
 
 
