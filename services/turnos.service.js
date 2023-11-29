@@ -1,6 +1,6 @@
 const { models } = require('../libs/sequelize');
 const boom = require('@hapi/boom');
-const { Op } = require('sequelize');
+const { Op, HasOne } = require('sequelize');
 
 class TurnosService {
   async create(data) {
@@ -10,44 +10,53 @@ class TurnosService {
     }
     return rta;
   }
+
+
+
   async generarTurnos(horario) {
+    console.log("--------********--------");
+    console.log(horario);
+    if(horario.horaDesde<horario.horaHasta){
+      for (
+        let fecha = new Date(horario.vigenciaDesde);
+        fecha <= new Date(horario.vigenciaHasta);
+        fecha.setDate(fecha.getDate() + 7)
+      ) {
+
+          const [horas, minutos] = horario.horaDesde.split(":");
+          fecha.setHours(parseInt(horas, 10));
+          fecha.setMinutes(parseInt(minutos, 10));
+
+          let fechaHorarioHasta = new Date(fecha.toDateString());
+          const [horas2, minutos2] = horario.horaHasta.split(":");
+          fechaHorarioHasta.setHours(parseInt(horas2, 10));
+          fechaHorarioHasta.setMinutes(parseInt(minutos2, 10));
+
+
+          for(let hora = fecha; hora<=fechaHorarioHasta; hora.setMinutes(hora.getMinutes()+horario.intervalo)){
+            console.log(hora);
+            const rta = await this.create({
+              clinicaId: horario.clinicaId,
+              profesionalId: horario.profesionalId,
+              especialidadId: horario.especialidadId,
+              date: hora,
+            });
 
 
 
-    for (
-      let fecha = new Date(horario.vigenciaDesde);
-      fecha <= new Date(horario.vigenciaHasta);
-      fecha.setDate(fecha.getDate() + 7)
-    ) {
-
-        const [horas, minutos] = horario.horaDesde.split(":");
-        fecha.setHours(parseInt(horas, 10));
-        fecha.setMinutes(parseInt(minutos, 10));
-
-        let fechaHorarioHasta = new Date(fecha.toDateString());
-        const [horas2, minutos2] = horario.horaHasta.split(":");
-        fechaHorarioHasta.setHours(parseInt(horas2, 10));
-        fechaHorarioHasta.setMinutes(parseInt(minutos2, 10));
-
-
-        for(let hora = fecha; hora<=fechaHorarioHasta; hora.setMinutes(hora.getMinutes()+horario.intervalo)){
-          console.log(hora);
-          const rta = await this.create({
-            clinicaId: horario.clinicaId,
-            profesionalId: horario.profesionalId,
-            especialidadId: horario.especialidadId,
-            date: hora,
-          });
+          }
 
 
 
-        }
-
-
-
+      }
     }
 
+
   }
+
+
+
+
   async find(clinicaId, query) {
     const options = {
       where: {
