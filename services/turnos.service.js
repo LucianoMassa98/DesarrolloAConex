@@ -14,10 +14,11 @@ class TurnosService {
 
 
   async generarTurnos(horario) {
-    console.log("--------********--------");
-    let ind=0;
-    console.log(horario);
+
+
+
     if(horario.horaDesde<horario.horaHasta){
+      const intervalo = parseInt(horario.intervalo,10);
       for (
         let fecha = new Date(horario.vigenciaDesde);
         fecha <= new Date( new Date(horario.vigenciaHasta).setDate(new Date(horario.vigenciaHasta).getDate()+1));
@@ -33,9 +34,9 @@ class TurnosService {
           fechaHorarioHasta.setHours(parseInt(horas2, 10));
           fechaHorarioHasta.setMinutes(parseInt(minutos2, 10));
 
-          ind++;
-          console.log(fecha+"--->"+ind);
-          for(let hora = fecha; hora<=fechaHorarioHasta; hora = new Date(hora.setMinutes(hora.getMinutes()+horario.intervalo))){
+
+
+          for(let hora = fecha; hora<=fechaHorarioHasta; hora = new Datehora.setMinutes(hora.getMinutes()+intervalo)){
 
             const rta = await this.create({
               clinicaId: horario.clinicaId,
