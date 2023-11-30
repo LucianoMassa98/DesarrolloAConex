@@ -16,7 +16,6 @@ class TurnosService {
   async generarTurnos(horario) {
 
 
-
     if(horario.horaDesde<horario.horaHasta){
       const intervalo = parseInt(horario.intervalo,10);
       for (
@@ -35,8 +34,7 @@ class TurnosService {
           fechaHorarioHasta.setMinutes(parseInt(minutos2, 10));
 
 
-
-          for(let hora = fecha; hora<=fechaHorarioHasta; hora = new Datehora.setMinutes(hora.getMinutes()+intervalo)){
+          for(let hora = fecha; hora<=fechaHorarioHasta; hora = new Date(hora.setMinutes(hora.getMinutes()+intervalo))){
 
             const rta = await this.create({
               clinicaId: horario.clinicaId,
