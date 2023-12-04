@@ -148,14 +148,14 @@ class TurnosService {
     query.fechaHasta = fechasSemana.miercoles;
     const rta4 = await this.find(clinicaId,query);
     if (rta4.length>1) {
-      dias.push("Miercoles");
+      dias.push("Miércoles");
     }
 
     query.fechaDesde = fechasSemana.jueves;
     query.fechaHasta = fechasSemana.jueves;
     const rta5 = await this.find(clinicaId,query);
     if (rta5.length>1) {
-      dias.push("jueves");
+      dias.push("Jueves");
     }
 
 
@@ -170,7 +170,7 @@ class TurnosService {
     query.fechaHasta = fechasSemana.sabado;
     const rta7 = await this.find(clinicaId,query);
     if (rta7.length>1) {
-      dias.push("Sabado");
+      dias.push("Sábado");
     }
 
 
