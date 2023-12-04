@@ -1,5 +1,6 @@
 const { models } = require('../libs/sequelize');
 const boom = require('@hapi/boom');
+const { date } = require('joi');
 const { Op, HasOne } = require('sequelize');
 
 class TurnosService {
@@ -56,6 +57,7 @@ class TurnosService {
 
 
   async find(clinicaId, query) {
+    console.log(query);
     const options = {
       where: {
         clinicaId: clinicaId,
@@ -114,6 +116,67 @@ class TurnosService {
 
     return rta;
   }
+  async findSemana(clinicaId, query) {
+
+    const { fechaDesde } = query;
+
+    const fechasSemana = await this.obtenerFechasSemana(fechaDesde);
+    const dias=[];
+
+    query.fechaDesde = fechasSemana.domingo;
+    query.fechaHasta = fechasSemana.domingo;
+    const rta = await this.find(clinicaId,query);
+    if (rta.length>1) {
+      dias.push("Domingo");
+    }
+
+    query.fechaDesde = fechasSemana.lunes;
+    query.fechaHasta = fechasSemana.lunes;
+    const rta2 = await this.find(clinicaId,query);
+    if (rta2.length>1) {
+      dias.push("Lunes");
+    }
+
+    query.fechaDesde = fechasSemana.martes;
+    query.fechaHasta = fechasSemana.martes;
+    const rta3 = await this.find(clinicaId,query);
+    if (rta3.length>1) {
+      dias.push("Martes");
+    }
+
+    query.fechaDesde = fechasSemana.miercoles;
+    query.fechaHasta = fechasSemana.miercoles;
+    const rta4 = await this.find(clinicaId,query);
+    if (rta4.length>1) {
+      dias.push("Miercoles");
+    }
+
+    query.fechaDesde = fechasSemana.jueves;
+    query.fechaHasta = fechasSemana.jueves;
+    const rta5 = await this.find(clinicaId,query);
+    if (rta5.length>1) {
+      dias.push("jueves");
+    }
+
+
+    query.fechaDesde = fechasSemana.viernes;
+    query.fechaHasta = fechasSemana.viernes;
+    const rta6 = await this.find(clinicaId,query);
+    if (rta6.length>1) {
+      dias.push("Viernes");
+    }
+
+    query.fechaDesde = fechasSemana.sabado;
+    query.fechaHasta = fechasSemana.sabado;
+    const rta7 = await this.find(clinicaId,query);
+    if (rta7.length>1) {
+      dias.push("Sabado");
+    }
+
+
+
+    return dias;
+  }
 
   async findOne(profesionalId, turnoId) {
     const rta = await models.Turno.findByPk(turnoId);
@@ -154,6 +217,40 @@ class TurnosService {
       throw boom.notFound('Turno not found');
     }
     return Turno;
+  }
+
+  async obtenerFechasSemana(fecha) {
+    // Crear una copia de la fecha original para no modificarla
+    const fechaOriginal = new Date(fecha);
+
+    // Obtener el número de día de la semana (0 = domingo, 1 = lunes, ..., 6 = sábado)
+    const diaSemana = fechaOriginal.getDay();
+
+    // Calcular la fecha del lunes restando el número de días desde el día actual
+    const lunes = new Date(fechaOriginal);
+    lunes.setDate(fechaOriginal.getDate() - diaSemana + (diaSemana === 0 ? -6 : 1));
+
+    // Calcular la fecha del domingo sumando los días restantes hasta el final de la semana
+    const domingo = new Date(lunes);
+    domingo.setDate(lunes.getDate() + 6);
+
+
+      const domingorta = new Date(lunes.setDate(lunes.getDate() - 1));
+      const lunesrta = new Date(lunes.setDate(lunes.getDate() + 1));
+      const martes = new Date(lunes.setDate(lunes.getDate() + 1));
+      const miercoles = new Date(lunes.setDate(lunes.getDate() + 1));
+      const jueves = new Date(lunes.setDate(lunes.getDate() + 1));
+      const viernes = new Date(lunes.setDate(lunes.getDate() + 1));
+      const sabado= new Date(domingo.setDate(domingo.getDate() + 1));
+    return {
+      domingo: `${(domingorta.getMonth() + 1).toString().padStart(2, '0')}-${domingorta.getDate().toString().padStart(2, '0')}-${domingorta.getFullYear()}`,
+      lunes: `${(lunesrta.getMonth() + 1).toString().padStart(2, '0')}-${lunesrta.getDate().toString().padStart(2, '0')}-${lunesrta.getFullYear()}`,
+      martes: `${(martes.getMonth() + 1).toString().padStart(2, '0')}-${martes.getDate().toString().padStart(2, '0')}-${martes.getFullYear()}`,
+      miercoles: `${(miercoles.getMonth() + 1).toString().padStart(2, '0')}-${miercoles.getDate().toString().padStart(2, '0')}-${miercoles.getFullYear()}`,
+      jueves: `${(jueves.getMonth() + 1).toString().padStart(2, '0')}-${jueves.getDate().toString().padStart(2, '0')}-${jueves.getFullYear()}`,
+      viernes: `${(viernes.getMonth() + 1).toString().padStart(2, '0')}-${viernes.getDate().toString().padStart(2, '0')}-${viernes.getFullYear()}`,
+      sabado: `${(sabado.getMonth() + 1).toString().padStart(2, '0')}-${sabado.getDate().toString().padStart(2, '0')}-${sabado.getFullYear()}`,
+    };
   }
 }
 module.exports = TurnosService;

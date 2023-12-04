@@ -6,7 +6,8 @@ const  {
   createturnoSchema,
   updateturnoSchema,
   getturnoSchema,
-  queryTurnoSchema
+  queryTurnoSchema,
+  getSemanaSchema
   } = require('../schemas/turno.schema');
 
   const {getclinicaSchema} = require('../schemas/clinica.schema');
@@ -73,13 +74,24 @@ router.patch('/anular/:profesionalId/:turnoId',
     next(err);
   }
 });
-router.get('/:clinicaId',
+router.get('/:clinicaId/',
 validatorHandler(getclinicaSchema,'params'),
 validatorHandler(queryTurnoSchema,'query'),
 async (req, res,next) => {
   try{
     const {clinicaId} = req.params;
     const Newturno = await service.find(clinicaId,req.query);
+    res.json(Newturno);
+  }catch(err){next(err);}
+});
+
+router.get('/ColorSemana/:clinicaId/',
+validatorHandler(getclinicaSchema,'params'),
+validatorHandler(getSemanaSchema,'query'),
+async (req, res,next) => {
+  try{
+    const {clinicaId} = req.params;
+    const Newturno = await service.findSemana(clinicaId,req.query);
     res.json(Newturno);
   }catch(err){next(err);}
 });

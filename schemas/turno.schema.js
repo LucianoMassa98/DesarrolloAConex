@@ -9,6 +9,7 @@ const presentismo = joi.string();
 const date = joi.date();
 const especialidadId = joi.number().integer();
 const libres= joi.boolean().truthy();
+
 const habilitado= joi.boolean();
 const fechaDesde=joi.date();
 const fechaHasta= joi.date();
@@ -34,7 +35,12 @@ const getturnoSchema = joi.object({
   profesionalId: profesionalId.required(),
   turnoId: profesionalId.required()
 });
-
+const getSemanaSchema = joi.object({
+  profesionalId,
+  especialidadId,
+  libres,
+  fechaDesde: fechaDesde.required()
+});
 const queryTurnoSchema = joi.object({
   profesionalId,
   especialidadId,
@@ -49,7 +55,8 @@ module.exports = {
   createturnoSchema,
   updateturnoSchema,
   getturnoSchema,
-  queryTurnoSchema
+  queryTurnoSchema,
+  getSemanaSchema
   };
 
 
