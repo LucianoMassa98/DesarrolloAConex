@@ -123,6 +123,10 @@ class TurnosService {
     const fechasSemana = await this.obtenerFechasSemana(fechaDesde);
     const dias=[];
 
+
+
+
+
     query.fechaDesde = fechasSemana.domingo;
     query.fechaHasta = fechasSemana.domingo;
     const rta = await this.find(clinicaId,query);

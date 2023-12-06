@@ -13,12 +13,12 @@ const createperfilSchema = joi.object({
 
   nombre: nombre.required(),
   apellido: apellido.required(),
-  cedula: cedula.required(),
-  celular:celular.required(),
+  cedula,
+  celular,
   direccion,
-  email: email.required(),
+  email,
   imagen,
-  nacimiento: nacimiento.required()
+  nacimiento
 
 });
 const updateperfilSchema = joi.object({

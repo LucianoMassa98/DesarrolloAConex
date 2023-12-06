@@ -18,11 +18,11 @@ const perfilSchema  = {
     type: DataTypes.STRING,
   },
   cedula: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.DOUBLE,
   },
   celular: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.DOUBLE,
   },
   direccion: {
@@ -30,7 +30,7 @@ const perfilSchema  = {
     type: DataTypes.STRING,
   },
   email: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.STRING,
     unique: false,
   },
@@ -40,7 +40,7 @@ const perfilSchema  = {
   },
   nacimiento: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
   }
 }
 
