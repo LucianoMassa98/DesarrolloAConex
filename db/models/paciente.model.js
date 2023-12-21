@@ -37,7 +37,7 @@ const pacienteSchema  = {
 
   },
   CondIVA: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.STRING,
   },
   createdAt: {

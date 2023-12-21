@@ -1,10 +1,11 @@
 const joi = require('joi');
 const id = joi.number().integer();
-const condIva = joi.string();
+const CondIVA = joi.string();
+
 const createpacienteSchema = joi.object({
   clinicaId: id.required(),
   perfilId: id.required(),
-  CondIVA: condIva.required()
+  CondIVA
 
 });
 const getpacienteSchema = joi.object({
