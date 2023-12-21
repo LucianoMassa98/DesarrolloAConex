@@ -18,9 +18,9 @@ const createturnoSchema = joi.object({
   clinicaId: profesionalId.required(),
   profesionalId: profesionalId.required(),
   pacienteId: pacienteId.required(),
-  observacion: observacion.required(),
-  obraSocial: obraSocial.required(),
-  presentismo: presentismo.required(),
+  observacion,
+  obraSocial,
+  presentismo,
   date: date.required()
 });
 
