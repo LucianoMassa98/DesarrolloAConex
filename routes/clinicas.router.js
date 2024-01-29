@@ -4,7 +4,8 @@ const validatorHandler = require('../middlewares/validator.handler');
 const {
   createclinicaSchema,
   updateclinicaSchema,
-  getclinicaSchema}= require('../schemas/clinica.schema');
+  getclinicaSchema,
+  getclinicaCelularSchema}= require('../schemas/clinica.schema');
 
 const ClinicasService = require('../services/clinicas.service');
 const service = new ClinicasService();
@@ -29,7 +30,17 @@ async (req,res,next)=>{
     next(err);
   }
 });
-
+router.get('/BuscarPor/:celular',
+validatorHandler(getclinicaCelularSchema,'params'),
+async (req,res,next)=>{
+  try{
+    const {celular} = req.params;
+    const clinica=await service.findOneCelular(celular);
+    res.json(clinica);
+  }catch(err){
+    next(err);
+  }
+});
 router.post('/',
 validatorHandler(createclinicaSchema,'body'),
 async (req, res,next) => {

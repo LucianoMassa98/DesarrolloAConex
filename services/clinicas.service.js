@@ -18,6 +18,17 @@ class ClinicasService {
     if(!rta){ throw boom.notFound('Clinica not found'); }
     return rta;
   }
+
+  async findOneCelular(celular) {
+    const rta = await this.find();
+
+    console.log(rta);
+    let i =0;
+    while(i<rta.length && rta[i].perfil.celular != celular){i++;}
+
+    if(i<rta.length){ return rta[i]; }else{throw boom.notFound('Clinica not found');}
+
+  }
   async update(clinicaId, change){
     const Clinica = await this.findOne(clinicaId);
     const rta = await Clinica.update(change);

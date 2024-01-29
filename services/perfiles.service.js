@@ -17,6 +17,12 @@ class PerfilesService {
     if(!perfil){ throw boom.notFound('perfil not found'); }
     return perfil;
   }
+  async findOneCelular(celular){
+
+    const perfil = await models.Perfil.findOne({where:{celular:celular}});
+    if(!perfil){ throw boom.notFound('perfil not found'); }
+    return perfil;
+  }
   async findOneQuery(query){
 
     const {cedula,celular,email} = query;

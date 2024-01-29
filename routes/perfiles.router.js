@@ -6,6 +6,7 @@ const  {
   createperfilSchema,
   updateperfilSchema,
   getperfilSchema,
+  getperfilCelularSchema,
   queryperfilSchema
   } = require('../schemas/perfil.schema');
 
@@ -19,6 +20,17 @@ async (req,res,next)=>{
   try{
     const{perfilId}=req.params;
   const perfil = await service.findOne(perfilId);
+  res.json(perfil);
+  }catch(err){
+    next(err);
+  }
+});
+router.get('/BuscarPor/:celular',
+validatorHandler(getperfilCelularSchema, 'params'),
+async (req,res,next)=>{
+  try{
+    const{celular}=req.params;
+  const perfil = await service.findOneCelular(celular);
   res.json(perfil);
   }catch(err){
     next(err);

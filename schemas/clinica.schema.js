@@ -2,6 +2,7 @@ const joi = require('joi');
 const id = joi.number().integer();;
 const perfilId = joi.number().integer();
 const username=joi.string().min(3);
+const celular = joi.number();
 
 const condicionFiscal = joi.string().min(3);
 const region = joi.string().min(3);
@@ -21,7 +22,11 @@ const updateclinicaSchema = joi.object({
 const getclinicaSchema = joi.object({
   clinicaId: id.required()
 });
+const getclinicaCelularSchema = joi.object({
+  celular: celular.required()
+});
 module.exports ={
   createclinicaSchema,
   updateclinicaSchema,
+  getclinicaCelularSchema,
   getclinicaSchema};

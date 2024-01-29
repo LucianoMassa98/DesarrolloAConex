@@ -34,6 +34,9 @@ const updateperfilSchema = joi.object({
 const getperfilSchema = joi.object({
   perfilId: id.required()
 });
+const getperfilCelularSchema = joi.object({
+  celular: celular.required()
+});
 const queryperfilSchema = joi.object({
  cedula: cedula.required(),
  celular: celular.required(),
@@ -44,7 +47,8 @@ module.exports = {
   createperfilSchema,
   updateperfilSchema,
   getperfilSchema,
-  queryperfilSchema
+  queryperfilSchema,
+  getperfilCelularSchema
   };
 
 
