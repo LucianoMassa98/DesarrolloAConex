@@ -22,7 +22,6 @@ class ClinicasService {
   async findOneCelular(celular) {
     const rta = await this.find();
 
-    console.log(rta);
     let i =0;
     while(i<rta.length && rta[i].perfil.celular != celular){i++;}
 

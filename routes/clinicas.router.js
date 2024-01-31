@@ -34,13 +34,18 @@ router.get('/BuscarPor/:celular',
 validatorHandler(getclinicaCelularSchema,'params'),
 async (req,res,next)=>{
   try{
+    console.log("Entró aquiiii");
+
     const {celular} = req.params;
+    console.log(celular);
     const clinica=await service.findOneCelular(celular);
     res.json(clinica);
   }catch(err){
     next(err);
   }
 });
+
+
 router.post('/',
 validatorHandler(createclinicaSchema,'body'),
 async (req, res,next) => {
