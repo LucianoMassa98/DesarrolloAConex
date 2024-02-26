@@ -20,12 +20,11 @@ async (req,res,next)=>{
     next(err);
   }
 });
-router.get('/:clinicaId/:pacienteId',
-validatorHandler(getpacienteSchema, 'params'),
+router.get('/',
+validatorHandler(getpacienteSchema, 'query'),
 async (req,res,next)=>{
   try{
-    const{clinicaId,pacienteId}=req.params;
-  const paciente = await service.findOne(clinicaId,pacienteId);
+  const paciente = await service.findOne(req.query);
   res.json(paciente);
   }catch(err){
     next(err);

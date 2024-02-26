@@ -1,3 +1,4 @@
+const { Model } = require('sequelize');
 const { models } = require('../libs/sequelize');
 const boom = require('@hapi/boom');
 
@@ -13,11 +14,22 @@ class PacientesService {
     if(!rta){throw boom.notFound("Pacientes not found");}
     return rta;
   }
-  async findOne(clinicaId,pacienteId) {
-    // falta devolver perfiles
-    const rta = await models.Paciente.findByPk(pacienteId,{include:['perfil']});
+  async findOne(query) {
+    const {clinicaId, pacienteId, celular} = query;
+    let options = {where:{},include:[]};
+    if(clinicaId){options.where={clinicaId: clinicaId}}
+    if(pacienteId){
+      options.where={...options.where, id: pacienteId}
+      options.include.push('perfil');
+    }
+    if(celular){
+      options.include.push({
+        association: 'perfil',
+        where: { celular: celular }
+      });
+    }
+    const rta = await models.Paciente.findOne(options);
     if(!rta){throw boom.notFound("Paciente not found");}
-    if(rta.clinicaId != clinicaId){throw boom.notFound("Paciente not found");}
     return rta;
   }
   async update(clinicaId, pacienteId, change){

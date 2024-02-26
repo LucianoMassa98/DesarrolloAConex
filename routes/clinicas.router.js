@@ -34,7 +34,6 @@ router.get('/BuscarPor/:celular',
 validatorHandler(getclinicaCelularSchema,'params'),
 async (req,res,next)=>{
   try{
-    console.log("Entró aquiiii");
 
     const {celular} = req.params;
     console.log(celular);
