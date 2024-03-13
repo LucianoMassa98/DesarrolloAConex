@@ -3,8 +3,24 @@ const boom = require('@hapi/boom');
 const { date } = require('joi');
 const { Op, HasOne } = require('sequelize');
 
+
+const PacientesService = require('./pacientes.service');
+const service1 = new PacientesService();
+
+const PerfilesService = require('./perfiles.service');
+const service2 = new PerfilesService();
+
 class TurnosService {
   async create(data) {
+    const {celular} = data;
+    if(celular){
+      const paciente = await service1.findOne({id:data.pacienteId});
+      const newPerfil = await service2.update(paciente.perfilId,{celular:celular});
+
+      const { edad, ...nuevoObjeto } = data;
+      data = nuevoObjeto;
+
+    }
     const rta = await models.Turno.create(data);
     if (!rta) {
       throw boom.notFound('No se pudo crear la Turno');

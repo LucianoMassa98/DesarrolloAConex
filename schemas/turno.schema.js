@@ -9,6 +9,7 @@ const presentismo = joi.string();
 const date = joi.date();
 const especialidadId = joi.number().integer();
 const libres= joi.boolean().truthy();
+const celular = joi.number();
 
 const habilitado= joi.boolean();
 const fechaDesde=joi.date();
@@ -21,6 +22,7 @@ const createturnoSchema = joi.object({
   observacion,
   obraSocial,
   presentismo,
+  celular,
   date: date.required()
 });
 
