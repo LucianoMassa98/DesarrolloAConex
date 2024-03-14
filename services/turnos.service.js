@@ -17,8 +17,9 @@ class TurnosService {
       const paciente = await service1.findOne({id:data.pacienteId});
       const newPerfil = await service2.update(paciente.perfilId,{celular:celular});
 
-      const { edad, ...nuevoObjeto } = data;
+      const { celular, ...nuevoObjeto } = data;
       data = nuevoObjeto;
+
 
     }
     const rta = await models.Turno.create(data);
