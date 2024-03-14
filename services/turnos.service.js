@@ -203,17 +203,18 @@ class TurnosService {
   }
   async update(profesionalId, turnoId, change) {
     console.log(change);
-    const {celular} = change;
+    const {celular, ...nuevoObjeto} = change;
+
     if(celular){
       const paciente = await service1.findOne({id:change.pacienteId});
       const newPerfil = await service2.update(paciente.perfilId,{celular:celular});
 
-      const { celular, ...nuevoObjeto } = change;
       change = nuevoObjeto;
       console.log("---------")
       console.log(nuevoObjeto);
       console.log("---------")
     }
+
     console.log(change);
 
 
