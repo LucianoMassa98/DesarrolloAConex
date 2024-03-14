@@ -5,8 +5,7 @@ const service = new ClinicaService();
 
 class UsuariosService {
   async create(data) {
-    console.log("-----------");
-    console.log(data);
+
     const dat = await models.Usuario.create(data);
     if (!dat) {
       throw boom.notFound('Usuario o Contraseña not found');

@@ -39,7 +39,7 @@ class PacientesService {
     return rta;
   }
   async delete(clinicaId, pacienteId) {
-    const Paciente = await this.findOne(clinicaId,pacienteId);
+    const Paciente = await this.findOne({clinicaId:clinicaId,pacienteId:pacienteId});
     const rta = await Paciente.destroy();
     if(!rta){throw boom.notFound("Paciente not found");}
     return Paciente;
