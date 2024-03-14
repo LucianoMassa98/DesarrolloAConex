@@ -22,7 +22,6 @@ const createturnoSchema = joi.object({
   observacion,
   obraSocial,
   presentismo,
-  celular,
   date: date.required()
 });
 
@@ -31,7 +30,8 @@ const updateturnoSchema = joi.object({
   observacion,
   presentismo,
   obraSocial,
-  habilitado
+  habilitado,
+  celular
 });
 const getturnoSchema = joi.object({
   profesionalId: profesionalId.required(),
