@@ -20,8 +20,6 @@ class TurnosService {
     return rta;
   }
 
-
-
   async generarTurnos(horario) {
 
 
@@ -61,11 +59,7 @@ class TurnosService {
 
   }
 
-
-
-
   async find(clinicaId, query) {
-    console.log(query);
     const options = {
       where: {
         clinicaId: clinicaId,
@@ -76,15 +70,12 @@ class TurnosService {
         include: ['perfil'], // Incluir el perfil del cliente
       }]
     };
-
-
     const { especialidadId } = query;
     if (especialidadId) {
       options.where.especialidadId = especialidadId;
     }
     const { libres } = query;
-    console.log(query);
-    console.log(libres);
+
     if (libres=='true') {
       options.where.pacienteId = null;
     }else if(libres=='false'){
@@ -202,7 +193,6 @@ class TurnosService {
     return rta;
   }
   async update(profesionalId, turnoId, change) {
-    console.log(change);
     const {celular, ...nuevoObjeto} = change;
 
     if(celular){
@@ -210,13 +200,7 @@ class TurnosService {
       const newPerfil = await service2.update(paciente.perfilId,{celular:celular});
 
       change = nuevoObjeto;
-      console.log("---------")
-      console.log(nuevoObjeto);
-      console.log("---------")
     }
-
-    console.log(change);
-
 
     const Turno = await this.findOne(profesionalId, turnoId);
     const rta = await Turno.update(change);
