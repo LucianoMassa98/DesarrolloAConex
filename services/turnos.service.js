@@ -12,6 +12,7 @@ const service2 = new PerfilesService();
 
 class TurnosService {
   async create(data) {
+    console.log(data);
     const {celular} = data;
     if(celular){
       const paciente = await service1.findOne({id:data.pacienteId});
@@ -19,9 +20,11 @@ class TurnosService {
 
       const { celular, ...nuevoObjeto } = data;
       data = nuevoObjeto;
-
-
+      console.log("---------")
+      console.log(nuevoObjeto);
+      console.log("---------")
     }
+    console.log(data);
     const rta = await models.Turno.create(data);
     if (!rta) {
       throw boom.notFound('No se pudo crear la Turno');
