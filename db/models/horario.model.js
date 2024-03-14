@@ -20,7 +20,7 @@ const horarioSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   profesionalId: {
     field: 'profesional_id',
@@ -31,7 +31,7 @@ const horarioSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   especialidadId: {
     field: 'especialidad_id',
@@ -42,7 +42,7 @@ const horarioSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   nroDia:{
     field: 'nro_día',

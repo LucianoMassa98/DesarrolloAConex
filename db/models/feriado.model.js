@@ -19,7 +19,7 @@ const feriadoSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   descripcion: {
     allowNull: false,

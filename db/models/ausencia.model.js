@@ -18,7 +18,7 @@ const ausenciaSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   vigenciaDesde: {
     allowNull: false,

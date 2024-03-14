@@ -21,7 +21,7 @@ const turnoSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   profesionalId: {
     field: 'profesional_id',
@@ -32,7 +32,7 @@ const turnoSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   pacienteId: {
     field: 'paciente_id',
@@ -54,7 +54,7 @@ const turnoSchema  = {
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   presentismo:{
     allowNull: true,
